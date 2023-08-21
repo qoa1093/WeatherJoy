@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영화데이터</title>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <style>
+        .box1{
+            border-radius: 10px;
+            border: 2px solid #73AD21;
+            background-color : #73AD21;
+            padding: 10px;
+            margin : 10px;
+            width : 400px;
+            height : 20px;
+            color : white;
+            text-align : center;
+        }
+        .box2{
+            padding : 10px;
+            margin : 10px;
+            width: 400px;
+            text-align : center;
+        }
+        .box3{
+            margin: 10px;
+            padding: 10px;
+            width: 400px;
+            text-align: center;
+        }
+        .cardClear{
+            clear : both;
+        }
+        #msg{
+            border-radius: 5px;
+            border : 2px solid #73AD21;
+            padding: 10px;
+            padding-left:  20px;
+            margin: 10px;
+            width: 400px;
+            height: 200px;
+            font-size: 14px;
+            text-align: left;
+            float: left;
+        }
+        a{
+            text-decoration: none;
+        }
+        p{
+            color: red;
+        }
+        .red{
+            color : red;
+        }
+        .blue{
+            color : blue;
+        }
+        li{
+            list-style-type: none;
+        }
+
+    </style>
+    <script>
+        function init(){
+            var newDate = new Date();
+            newDate.setDate(newDate.getDate()-1);
+
+            $('#txtYear').val(newDate.getFullYear());
+
+            var mon = newDate.getMonth()+1;
+            if(newDate.getMonth()<10){
+                mon = "0" + mon;
+            }
+            $("#selMon").val(mon);
+
+            var d = newDate.getDate()
+            if(newDate.getDate()<10){
+                d = "0" + d;
+            }
+            $('#selDay').val(d);
+        }
+
+        function show(movieCd){
+            var url = "https://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.xml?key=f5eef3421c602c6cb7ea224104795888&movieCd=";
+            url = url + movieCd;
+            $(".box3").text("");
+
+            $.ajax({
+                    type : "GET",
+                    url : url,
+                    dataType:"xml",
+                    success:function(data){
+                        console.log(data);
+                        var str = "";
+                        str = str+ "<h1>"+$(data).find("movieNm").text()+"</h1>";
+                        str = str+ "<h2>"+$(data).find("movieNmEn").text()+"</h2>";
+                        str = str + "<h3>"+$(data).find("prdtYear").text()+"년</h3>";
+                        str = str+ "<p>상영시간 : "+$(data).find("showTm").text()+"분</p>";
+                        str = str + "<p>장르 : " + $(data).find("genreNm").text()+"</p>";
+                        str = str + "<ul>";
+                            $(data).find("actor").each(function(){
+                                str = str + "<li>" + $(this).find("peopleNm").text()+"</li>";
+                            });
+                        str = str + "</ul>";
+                        $(".box3").append(str);
+                    }, error : function(){
+                        alert("error");
+                    }})
+        }
+        function month(){
+            var mon='';
+            for(i=1;i<13;i++){
+                if(i<10){
+                mon += '<option value=0'+i+'>'+i+'월</option>';
+                }else{ 
+                mon += '<option value='+i+'>'+i+'월</option>';
+            }}
+            $('#selMon').append(mon);
+            /*
+            var val = 0;
+            for(i=1;i<=12;i++){
+                if(i<10) val = "0" + i;
+                else val = i;
+                $('<option>' + i +'월</option>').attr({
+                    value: val
+                }).appendTo('#selMon');
+            }
+            
+            */
+        }
+        function day(){
+            $('#selDay').empty();
+            let y =$('#txtYear').val();
+            let m = $('#selMon').val();
+            var lastDateOfMonth = new Date(y, m, 0).getDate();
+            var day = '';
+            for(i=1;i<=lastDateOfMonth;i++){
+                if(i<10){
+                day += '<option value=0'+i+'>'+i+'일</option>';
+                }else{ 
+                day += '<option value='+i+'>'+i+'일</option>';
+            }
+            }
+            $('#selDay').append(day);
+        }
+        $(document).ready(function(){
+            month();
+            day();
+            init();
+            
+            $('#bt1').click(function(){
+                if($('.box3').text!="") $('.box3').empty();
+                if($('#msg').text!="") $('#msg').empty();
+                var url = "https://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.xml?key=f5eef3421c602c6cb7ea224104795888&targetDt=";
+                url = url + $('#txtYear').val() + $('#selMon').val()+$('#selDay').val();
+                $("#msg").text(" ");
+
+                $.ajax({
+                    type : "GET",
+                    url : url,
+                    dataType:"xml",
+                    success:function(data){
+                        var str = "";
+                            
+                        
+                        if($(data).find("dailyBoxOffice").text() == ""){
+                            alert("일일자료가 존재하지 않습니다.");
+                            return;
+                        }
+                        $(data).find("dailyBoxOffice").each(function(){
+                            //console.log($(this).find("movieCd").text());    
+                            str = str + "<a href='#' onclick='javascript:show(" + $(this).find("movieCd").text() + ")'>";
+                            str1= $(this).find("rank").text()+"위(";
+                            //str = str+ str1;
+                            rankInten = parseInt($(this).find("rankInten").text());
+                            if(rankInten >0){
+                                col= 'red';
+                                str = str +"<span class="+ col +">"+ str1+"▲" + rankInten + ") :</span>";               
+                            }
+                            else if (rankInten < 0){
+                                col= 'blue';
+                                str = str + "<span class="+ col +">"+str1 + "▼" + Math.abs(rankInten) + ") :</span>"
+                            }
+                            else{
+                                col= 'black';
+                                str =str + "<span class="+ col +">"+str1 + rankInten+ ") :</span>"    
+                            }
+                            strSpan = $(this).find("movieNm").text() + "</a><br>";
+                            //str = str + strSpan;
+                            str = str+strSpan;
+                            console.log(str + " " + str1 + " " + strSpan);
+                        })
+                        $("#msg").append(str);
+                    },
+                    error : function(){alert("error")}
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+    <form action="" name="myform">
+        <div class="box1">
+            일별 박스오피스
+        </div>
+        <div class="box2">
+            <input type="text" name="txtYear" id="txtYear" size="6">년
+            <select name="" id="selMon">
+                
+            </select>
+            <select id="selDay">
+                
+            </select>
+            <input type="button" value="확인" id="bt1">
+        </div>
+        <div id="msg"></div>
+        <div class="cardClear"></div>
+        <div class="box3"></div>
+    </form>
+</body>
+</html>

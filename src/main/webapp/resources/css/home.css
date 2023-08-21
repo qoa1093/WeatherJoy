@@ -1,0 +1,204 @@
+@charset "UTF-8";
+        .box1{
+            border-radius: 10px;
+            border: 2px solid #73AD21;
+            background-color : #73AD21;
+            padding: 10px;
+            margin : 10px;
+            width : 400px;
+            height : 20px;
+            color : white;
+            text-align : center;
+        }
+        .box2{
+            padding : 10px;
+            margin : 10px;
+            width: 400px;
+            text-align : center;
+        }
+        .box3{
+            margin: 10px;
+            padding: 10px;
+            width: 400px;
+            text-align: center;
+        }
+        .cardClear{
+            clear : both;
+        }
+        #msg{
+            border-radius: 5px;
+            border : 2px solid #73AD21;
+            padding: 10px;
+            padding-left:  20px;
+            margin: 10px;
+            width: 400px;
+            height: 200px;
+            font-size: 14px;
+            text-align: left;
+            float: left;
+        }
+        a{
+            text-decoration: none;
+        }
+        li{
+            list-style-type: none;
+        }
+        .menuBarOpen{
+height: 350px; width: 180px;
+opacity: 1; background-color: rgb(252, 242, 242);
+position: fixed;
+top: 0; right : 0; margin: 0;
+transition: width 1.5s;
+animation: moveSlideMenu 1s ease; z-index: -1;
+border-radius: 0 0 0 10%;
+}
+.menubarblock{
+    height: 50px; border: 1px solid black;
+}
+html{
+    margin: 0; padding: 0;
+}
+.headerbar{
+    position: absolute; width: 100%; height: 70px; background-color:brown;
+    z-index: 1; margin: 0; 
+}
+.fa-solid:hover{
+    cursor: pointer;
+}
+.fa-wine-bottle, .fa-temperature-low, .fa-mountain-sun, .fa-hotel{
+    color: brown; font-size: 60px;
+    position: absolute; top: 60px;
+}
+.fa-solid.fa-bars{
+    position: fixed;  z-index: 1; font-size: 40px; color: white;
+    top: 20px; right: 20px;
+}
+.drinkpic1{
+    display: flex; width: 100%;
+    height: auto; z-index: 0; position: relative; margin: 0; padding: 0;
+}
+.recommendCard{
+    float: left;  background-color: bisque;
+    height: 300px; width: 30%; margin: 0px 8px 0px 8px; 
+}
+
+.fullcardBasket{
+    position: relative; 
+    
+}
+.cardBasket{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.cardNo3,.cardNo2,.cardNo1,.transed{
+    display: flex;
+    flex-direction: column; /*내용을 세로로 정렬*/
+    justify-content: center;
+    align-items: center;
+    text-align: center;/*내용을 가운데정렬 */
+}
+.cb1>.transed:hover{
+    backface-visibility: visible;
+    transform-origin : 50% 50%;
+    animation: moveHorizontal 3s linear infinite;
+}
+
+@keyframes moveHorizontal {
+0% {
+    transform: translateX(10px) perspective(500px) rotateY(-20deg) rotateX(0deg);
+}
+25% {
+    transform: perspective(500px) translateX(20px);
+}
+50% {
+transform: translateX(-10px) perspective(500px) rotateY(20deg) rotateX(0deg);
+}
+75% {  transform: perspective(500px) translateX(20px);}
+100%{
+    transform: translateX(10px) perspective(500px) rotateY(-20deg) rotateX(0deg);
+}
+
+}
+@keyframes moveSlideMenu {
+    from {
+        transform: translateX(100px);
+    }
+    to{
+        transform:  translateX(0px);
+    }
+    
+    }
+    .star-rating{
+        margin-bottom: 10px;
+    }
+    .star-ratingbottom{
+        text-align: center;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /*height: 20%;
+        */
+    }
+    .score-Level{
+    margin-top: 80px;
+    }
+    .star-rating-text p {
+      margin: 5px;
+    }
+    .star{
+        color: yellow; font-size: 130%;
+    }
+    .fa-solid.fa-bars{
+        position: fixed;  z-index: 1; font-size: 40px; color: white;
+        top: 20px; right: 20px;
+    }
+    .drinkpic1{
+        display: flex; width: 100%;
+        height: auto; z-index: 0; position: relative;
+    }
+    .recommendCard{
+        float: left;  background-color: bisque;
+        height: 300px; width: 30%; margin: 0px 8px 0px 8px; 
+    }
+    .fa-circle-chevron-left{
+        position:absolute; right: 94%; top : 130px; z-index: 1;
+        font-size: 40px; color: burlywood;
+    }
+    .fa-circle-chevron-right{
+        position: absolute; left: 94%; top : 130px; z-index: 1;
+        font-size: 40px; color: burlywood;
+    }
+
+    
+    .cb2>.transed:hover{
+        backface-visibility: visible;
+        transform-origin : 50% 50%;
+        animation: moveSlide 1.5s linear infinite;
+    }
+    @keyframes moveSlide {
+    0% {
+        transform: translateX(10px) perspective(500px)  rotateY(0deg) rotateX(0deg);
+    }
+    50% {
+        transform: translateX(0px)perspective(500px) ; 
+    }
+    100% {
+    transform: translateX(10px) perspective(500px)  rotateY(0deg) rotateX(0deg);
+    }
+}
+select{
+    margin-top: 18px;
+}
+.hide{
+    display: none;
+}
+#fixText{
+     height: 40px; position: absolute;
+}
+#TNum{
+    position: absolute;
+}

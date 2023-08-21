@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>날씨데이터</title>
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src="https://kit.fontawesome.com/e8200549ff.js" crossorigin="anonymous"></script>
     <style>
         .box1{
             border-radius: 10px;
@@ -47,24 +48,173 @@
         a{
             text-decoration: none;
         }
-        p{
-            color: red;
-        }
-        .red{
-            color : red;
-        }
-        .blue{
-            color : blue;
-        }
         li{
             list-style-type: none;
         }
+        .menuBarOpen{
+height: 350px; width: 180px;
+opacity: 1; background-color: rgb(252, 242, 242);
+position: fixed;
+top: 0; right : 0; margin: 0;
+transition: width 1.5s;
+animation: moveSlideMenu 1s ease; z-index: -1;
+border-radius: 0 0 0 10%;
+}
+.menubarblock{
+    height: 50px; border: 1px solid black;
+}
+html{
+    margin: 0; padding: 0;
+}
+.headerbar{
+    position: absolute; width: 100%; height: 70px; background-color:brown;
+    z-index: 1; margin: 0; 
+}
+.fa-solid:hover{
+    cursor: pointer;
+}
+.fa-wine-bottle, .fa-temperature-low, .fa-mountain-sun, .fa-hotel{
+    color: brown; font-size: 60px;
+    position: absolute; top: 60px;
+}
+.fa-solid.fa-bars{
+    position: fixed;  z-index: 1; font-size: 40px; color: white;
+    top: 20px; right: 20px;
+}
+.drinkpic1{
+    display: flex; width: 100%;
+    height: auto; z-index: 0; position: relative; margin: 0; padding: 0;
+}
+.recommendCard{
+    float: left;  background-color: bisque;
+    height: 300px; width: 30%; margin: 0px 8px 0px 8px; 
+}
 
+.fullcardBasket{
+    position: relative; 
+    
+}
+.cardBasket{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+.cardNo3,.cardNo2,.cardNo1,.transed{
+    display: flex;
+    flex-direction: column; /*내용을 세로로 정렬*/
+    justify-content: center;
+    align-items: center;
+    text-align: center;/*내용을 가운데정렬 */
+}
+.cb1>.transed:hover{
+    backface-visibility: visible;
+    transform-origin : 50% 50%;
+    animation: moveHorizontal 3s linear infinite;
+}
+
+@keyframes moveHorizontal {
+0% {
+    transform: translateX(10px) perspective(500px) rotateY(-20deg) rotateX(0deg);
+}
+25% {
+    transform: perspective(500px) translateX(20px);
+}
+50% {
+transform: translateX(-10px) perspective(500px) rotateY(20deg) rotateX(0deg);
+}
+75% {  transform: perspective(500px) translateX(20px);}
+100%{
+    transform: translateX(10px) perspective(500px) rotateY(-20deg) rotateX(0deg);
+}
+
+}
+@keyframes moveSlideMenu {
+    from {
+        transform: translateX(100px);
+    }
+    to{
+        transform:  translateX(0px);
+    }
+    
+    }
+    .star-rating{
+        margin-bottom: 10px;
+    }
+    .star-ratingbottom{
+        text-align: center;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /*height: 20%;
+        */
+    }
+    .score-Level{
+    margin-top: 80px;
+    }
+    .star-rating-text p {
+      margin: 5px;
+    }
+    .star{
+        color: yellow; font-size: 130%;
+    }
+    .fa-solid.fa-bars{
+        position: fixed;  z-index: 1; font-size: 40px; color: white;
+        top: 20px; right: 20px;
+    }
+    .drinkpic1{
+        display: flex; width: 100%;
+        height: auto; z-index: 0; position: relative;
+    }
+    .recommendCard{
+        float: left;  background-color: bisque;
+        height: 300px; width: 30%; margin: 0px 8px 0px 8px; 
+    }
+    .fa-circle-chevron-left{
+        position:absolute; right: 94%; top : 130px; z-index: 1;
+        font-size: 40px; color: burlywood;
+    }
+    .fa-circle-chevron-right{
+        position: absolute; left: 94%; top : 130px; z-index: 1;
+        font-size: 40px; color: burlywood;
+    }
+
+    
+    .cb2>.transed:hover{
+        backface-visibility: visible;
+        transform-origin : 50% 50%;
+        animation: moveSlide 1.5s linear infinite;
+    }
+    @keyframes moveSlide {
+    0% {
+        transform: translateX(10px) perspective(500px)  rotateY(0deg) rotateX(0deg);
+    }
+    50% {
+        transform: translateX(0px)perspective(500px) ; 
+    }
+    100% {
+    transform: translateX(10px) perspective(500px)  rotateY(0deg) rotateX(0deg);
+    }
+}
+select{
+    margin-top: 18px;
+}
+.hide{
+    display: none;
+}
+#fixText{
+     height: 40px; position: absolute;
+}
+#TNum{
+    position: absolute;
+}
     </style>
     <script>
-        function init(){
+         function init(){
             var newDate = new Date();
-            newDate.setDate(newDate.getDate());
+            newDate.setDate(newDate.getDate()-1);
 
             $('#txtYear').val(newDate.getFullYear());
 
@@ -74,18 +224,37 @@
             }
             $("#selMon").val(mon);
 
-            var d = newDate.getDate()
+            var d = newDate.getDate()+1;
             if(newDate.getDate()<10){
                 d = "0" + d;
             }
             $('#selDay').val(d);
         }
+        function getDate(){
+            var newDate = new Date();
+            newDate.setDate(newDate.getDate());
+            var str = newDate.getFullYear();
+            
 
-        function show(movieCd){
-            var url = "https://apis.data.go.kr/1360000/TourStnInfoService1/getCityTourClmIdx1?serviceKey=ibNDydv%2BVD1XxdnbSBCwRIZ4nfiYnptFv6FveU0wGfu4yRPisWSg%2F1gRJgdgRxOvOm6DlzNjTEJrjZkDyxNwbw%3D%3D";
-            url = url + movieCd;
-            $(".box3").text("");
+            var mon = newDate.getMonth()+1;
+            if(newDate.getMonth()<10){
+                mon = "0" + mon;
+            }
+            str =str + mon;
 
+            var d = newDate.getDate()
+            if(newDate.getDate()<10){
+                d = "0" + d;
+            }
+            str = str + d;
+            return str;
+        }
+
+        function show(selectedValue,reCityName){
+            var url = "https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=ibNDydv%2BVD1XxdnbSBCwRIZ4nfiYnptFv6FveU0wGfu4yRPisWSg%2F1gRJgdgRxOvOm6DlzNjTEJrjZkDyxNwbw%3D%3D";
+            url = url + '&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=xml&listYN=Y&arrange=A&keyword='+reCityName+'&contentTypeId='+selectedValue;
+            $(".cb2").text("");
+            console.log("----: "+url);
             $.ajax({
                     type : "GET",
                     url : url,
@@ -93,21 +262,21 @@
                     success:function(data){
                         console.log(data);
                         var str = "";
-                        str = str+ "<h1>"+$(data).find("movieNm").text()+"</h1>";
-                        str = str+ "<h2>"+$(data).find("movieNmEn").text()+"</h2>";
-                        str = str + "<h3>"+$(data).find("prdtYear").text()+"년</h3>";
-                        str = str+ "<p>상영시간 : "+$(data).find("showTm").text()+"분</p>";
-                        str = str + "<p>장르 : " + $(data).find("genreNm").text()+"</p>";
-                        str = str + "<ul>";
-                            $(data).find("actor").each(function(){
-                                str = str + "<li>" + $(this).find("peopleNm").text()+"</li>";
-                            });
-                        str = str + "</ul>";
-                        $(".box3").append(str);
+                        $(data).find("item").each(function(){
+                            str = str+ "<h1>이름 : "+$(this).find("title").text()+"</h1>";
+                        str = str+ "<h2>컨텐츠타입(예 12:관광) : "+$(this).find("contenttypeid").text()+"</h2>";
+                        str = str + "<p> : " + $(this).find("firstimage").text()+"</p>";
+                            
+                        });
+                            
+                        $(".cb2").append(str);
                     }, error : function(){
                         alert("error");
                     }})
         }
+       
+           
+        
         function month(){
             var mon='';
             for(i=1;i<13;i++){
@@ -136,10 +305,10 @@
         let goodList = [];
         let veryGoodList = [];
         function goodDayList(){
+            
             var url = "https://apis.data.go.kr/1360000/TourStnInfoService1/getCityTourClmIdx1?serviceKey=ibNDydv%2BVD1XxdnbSBCwRIZ4nfiYnptFv6FveU0wGfu4yRPisWSg%2F1gRJgdgRxOvOm6DlzNjTEJrjZkDyxNwbw%3D%3D";
-                url = url + "&pageNo=1&numOfRows=100&dataType=XML&DAY=1&CURRENT_DATE="+$('#txtYear').val() + $('#selMon').val()+$('#selDay').val();
+                url = url + "&pageNo=1&numOfRows=500&dataType=XML&DAY=0&CURRENT_DATE="+$('#txtYear').val() + $('#selMon').val()+$('#selDay').val();//(getDate());//
                 console.log("------"+url);
-                $("#msg").text(" ");
 
                 $.ajax({
                     type : "GET",
@@ -155,17 +324,46 @@
                             return;
                         }
                         $(data).find("item").each(function(){
-                            if($(this).find("TCI_GRADE").text() == "좋음"){
+                            if($(this).find("TCI_GRADE").text() === "좋음"){
                             console.log("좋음 : "+ $(this).find("cityName").text());
                             goodList.push($(this).find("totalCityName").text());
+                            if(setNum%4==0){ setFullNum++;}
+                            getCard(setNum, $(this).find("totalCityName").text(), $(this).find("TCI_GRADE").text());
+                            
+                            setNum++;
                             
                             }else if($(this).find("TCI_GRADE").text() === "매우좋음"){
+                                let card1 = "매우좋음 : "+ $(this).find("cityName").text();
                                 console.log("매우좋음 : "+ $(this).find("cityName").text());
                                 veryGoodList.push($(this).find("totalCityName").text());
+                                if(setNum%4==0) setFullNum++;
+                                getCard(setNum, $(this).find("totalCityName").text(), $(this).find("TCI_GRADE").text());
+                                setNum++;
+                                
                             }else{
-                                console.log("나쁨 또는 보통 : " + $(this).find("cityName").text());
-                            }
+                                //console.log("나쁨 또는 보통 : " + $(this).find("cityName").text());
+                            }                            
+                           
+                            //str = str + $(this).find("totalCityName").text(); 
+                            //str = str + $(this).find("TCI_GRADE").text() + "<br>";
+                            //console.log(str + " " );
                         })
+                        
+                        veryGoodList.forEach(item => {
+                            str = str + item + " : " + "매우좋음" + "<br>";
+                        });
+                        
+                        goodList.forEach(item => {
+                            str = str + item + " : " + "좋음" + "<br>";
+                        });
+                        console.log(cardText);
+                        $(".cb1").append(cardText);
+                        for (let i = 0; i < setNum; i++) {
+                            if(i>3){
+                                $('.cardNo'+i).addClass('hide');
+                                //setFullNum = 1;
+                        }                            
+                        }                        
                         console.log(veryGoodList);
                         console.log(goodList);
                         
@@ -177,7 +375,97 @@
             month();
             day();
             init();
+            $('#bt1').click(function(e){
+                e.preventDefault();
+                $('.cb1').html(""); 
+                $(".cb2").text("");           
+            if(cardText !== "") {cardText = ""; setNum=1; setFullNum=1;}
             goodDayList();
+            })
+            $('a').click(function(event){
+                event.stopPropagation();
+            })
+            $(document).on('click','.transed' ,function(event){
+                //해당 카드번호 실행
+                //e.preventDefault();
+                event.stopPropagation();                 
+                console.log("클릭");
+                reCityName = $(this).attr('id');
+                if (reCityName.includes('구')) {
+                    reCityName = reCityName.replace('구', '');
+                    reCityName = reCityName.substring(0,2);
+                    //tourType();
+                    
+                    //show(reCityName.substring(0,2)); // '구' 자 제거
+                }else{
+                    console.log( "시 : "+reCityName.substring(reCityName.lastIndexOf(' '), reCityName.length-1));
+                    reCityName = reCityName.substring(reCityName.lastIndexOf(' ')+1, reCityName.length-1)
+                }
+                //console.log(" 아이디값 :" +$(this).attr('id') + "부모의 아이디값 : " + $('[name="tourNum"]').parent().attr('id'));
+                if($(this).attr('id')!==$('[name="tourNum"]').parent('.transed').attr('id')||!$('[name="tourNum"]').length>0){
+                    if($('[name="tourNum"]').length>0){
+                        $('[name="tourNum"]').remove();
+                    }
+                    $(this).append(tourType());        
+                }
+                //show(reCityName);                
+            })
+var reCityName;
+var currentSet = 1;
+
+
+$(document).on('change', '[name="tourNum"]', function() {
+        var selectedValue = $(this).val();
+        console.log(selectedValue);
+        
+            show(selectedValue, reCityName); // 선택한 값으로 show() 함수 호출
+        
+    });
+function tourType(){
+    //12:관광지, 14:문화시설, 15:축제공연행사, 25:여행코스, 28:레포츠, 32:숙박, 38:쇼핑, 39:음식점
+    
+    var tourStr =  '<select name="tourNum" id="TNum">'+
+                    '<option value="" selected>보고싶은 정보</option>'+
+                    '<option value="12">관광지</option>'+
+                    '<option value="14">문화시설</option>'+
+                    '<option value="15">축제공연행사</option>'+
+                    '<option value="25">여행코스</option>'+
+                    '<option value="28">레포츠</option>'+
+                    '<option value="32">숙박</option>'+
+                    '<option value="38">쇼핑</option>'+
+                    '<option value="39">음식점</option>'+
+                    '</select>';
+                    
+    //$('.recommendCard').removeClass("transed");
+    return tourStr;
+}
+$('.fa-circle-chevron-right').on('click', function() {
+    console.log("totalSets: "+setFullNum + " "+ setNum);
+    if (currentSet < setFullNum) {
+        currentSet++;
+        updateCardVisibility();
+    }
+});
+
+$('.fa-circle-chevron-left').on('click', function() {
+    if (currentSet > 1) {
+        currentSet--;
+        updateCardVisibility();
+    }
+});
+
+function updateCardVisibility() {
+    var startIndex = (currentSet - 1) * 3 + 1;
+    var endIndex = Math.min(currentSet * 3, setNum-1);
+
+    for (var i = 1; i < setNum; i++) {
+        if (i >= startIndex && i <= endIndex) {
+            $('.cardNo' + i).removeClass('hide');
+        } else {
+            $('.cardNo' + i).addClass('hide');
+        }
+    }
+}
             /*
             &pageNo=1
             &numOfRows=10
@@ -186,77 +474,64 @@
             &DAY=3
             &CITY_AREA_ID=5013000000
             */
-            /*$('#bt1').click(function(){
-                if($('.box3').text!="") $('.box3').empty();
-                if($('#msg').text!="") $('#msg').empty();
-                var url = "https://apis.data.go.kr/1360000/TourStnInfoService1/getCityTourClmIdx1?serviceKey=ibNDydv%2BVD1XxdnbSBCwRIZ4nfiYnptFv6FveU0wGfu4yRPisWSg%2F1gRJgdgRxOvOm6DlzNjTEJrjZkDyxNwbw%3D%3D";
-                url = url + "&pageNo=1&numOfRows=100&dataType=XML&DAY=1&CURRENT_DATE="+$('#txtYear').val() + $('#selMon').val()+$('#selDay').val();
-                console.log("------"+url);
-                $("#msg").text(" ");
-
-                $.ajax({
-                    type : "GET",
-                    url : url,
-                    dataType:"xml",
-                    success:function(data){
-                        var str = "";
-                        console.log("연결성공000");    
-                        console.log(data);
-                        //console.log(":::"+$(data).find("item").find("doName").text());
-                        if($(data).find("item").find("TCI_GRADE").text() == ""){
-                            alert("일일자료가 존재하지 않습니다.");
-                            return;
-                        }
-                        $(data).find("item").each(function(){
-                            if($(this).find("TCI_GRADE").text() == "좋음"){
-                            console.log("좋음 : "+ $(this).find("cityName").text());
-                            
-                            
-                            }else if($(this).find("TCI_GRADE").text() === "매우좋음"){
-                                console.log("매우좋음 : "+ $(this).find("cityName").text());
-                            }else{
-                                console.log("나쁨 또는 보통 : " + $(this).find("cityName").text());
-                            }
-                        })
-                        /*
-                        $(data).find("TCI_GRADE").each(function(){
-                            //console.log($(this).find("movieCd").text());    
-                            str = str + "<a href='#' onclick='javascript:show(" + $(this).find("movieCd").text() + ")'>";
-                            str1= $(this).find("rank").text()+"위(";
-                            //str = str+ str1;
-                            rankInten = parseInt($(this).find("rankInten").text());
-                            
-                            strSpan = $(this).find("movieNm").text() + "</a><br>";
-                            //str = str + strSpan;
-                            str = str+strSpan;
-                            console.log(str + " " + str1 + " " + strSpan);
-                        })//
-                        $("#msg").append(str);
-                    },
-                    error : function(){alert("error")}
-                })
-            })*/
+            
         })
+        //totalCityName을 수정해서 집어넣기
+        //가져온 정보를 넣어서 div가 클릭될 시 해당 정보들을 리턴함
+        function getTour(){
+            
+        }
+        var cardText = "";
+        let setNum = 1;
+        let setFullNum = 1;
+        function getCard(setNum, totalCityName, TCI_GRADE){
+            
+            cardText = cardText + //cardno1 : 카드 고유 번호 , fullset1 : 3개 마다 셋트바뀜
+                '<div class="recommendCard transed cardNo'+setNum+' fullset'+setFullNum+'"'+'id ="'+totalCityName+'">'+
+                    '<i class="fa-solid fa-temperature-low">'+'</i>'+
+                    '<div id = "fixText">'+
+                    '<p>관광지 이름 <br/>' +totalCityName+'</p>'+
+                    '<p>관광지 날씨 <br/> '+ TCI_GRADE+'</p>'+
+                    '<p><a href="#">리뷰게시판</a></p></div>'+
+                    '</div>';
+           return {totalCityName, TCI_GRADE};
+        }
+        
+        
+        
     </script>
 </head>
 <body>
+    <div class="box2">
+        <input type="text" name="txtYear" id="txtYear" size="6">년
+        <select name="" id="selMon">
+            
+        </select>
+        <select id="selDay">
+            
+        </select>
+        <input type="button" value="확인" id="bt1">
+    </div>
     <form action="" name="myform">
-        <div class="box1">
-            일별 박스오피스
-        </div>
-        <div class="box2">
-            <input type="text" name="txtYear" id="txtYear" size="6">년
-            <select name="" id="selMon">
-                
-            </select>
-            <select id="selDay">
-                
-            </select>
-            <input type="button" value="확인" id="bt1">
-        </div>
-        <div id="msg"></div>
-        <div class="cardClear"></div>
-        <div class="box3"></div>
+        <container class="fullcardBasket">
+            <i class="fa-solid fa-circle-chevron-left"></i>
+            <div id="case1"class="cardBasket cb1">                
+                <!--<div class="recommendCard transed cardNo1 fullset1">
+                    <i class="fa-solid fa-temperature-low"></i>
+                    관광지 이름
+                    관광지 날씨                    
+                </div>    
+                <div class="recommendCard transed cardNo2 fullset1">
+                    <i class="fa-solid fa-mountain-sun"></i>
+                    <i class="fa-solid fa-hotel"></i>
+                    추천관광지 실내/실외
+                </div>-->
+            </div>
+            <div class="cb2">
+
+            </div>
+            <i class="fa-solid fa-circle-chevron-right"></i>
+            </container>
     </form>
 </body>
 </html>
