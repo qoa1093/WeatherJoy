@@ -20,7 +20,7 @@ public class BoardVO {
 	
 	public String getWriter() {
 		
-		String writer = new MemberVO().getId(opBdNum);
+		writer = new MemberVO().getId(opBdNum);
 		return writer;
 	}
 	
