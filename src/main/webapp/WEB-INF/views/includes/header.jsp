@@ -54,12 +54,11 @@
                 <a  href="/" style="margin:0">
                 	<img src="${pageContext.request.contextPath}/resources/image/tourlogo.png" alt="로고 이미지" width="100" height="100" style="margin-top:0">
                 </a>
+                <a>로그인</a>
+                <a>회원가입</a>
                 <a  id="menu" href="#" style="margin:0">
                 	<img src="${pageContext.request.contextPath}/resources/image/menu.png" alt="menu" width="100" height="100" style="margin-right:0">
                 </a>
-                <button type="button" class="navbar-toggle" data-toggle="collapse">
-                    <span class="sr-only">마이페이지</span>
-                </button>
             </div>
             <!-- /.navbar-header -->    
 </div>

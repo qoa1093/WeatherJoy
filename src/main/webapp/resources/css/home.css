@@ -36,25 +36,10 @@
             font-size: 14px;
             text-align: left;
             float: left;
-        }
-        a{
-            text-decoration: none;
-        }
-        li{
-            list-style-type: none;
-        }
-        .menuBarOpen{
-height: 350px; width: 180px;
-opacity: 1; background-color: rgb(252, 242, 242);
-position: fixed;
-top: 0; right : 0; margin: 0;
-transition: width 1.5s;
-animation: moveSlideMenu 1s ease; z-index: -1;
-border-radius: 0 0 0 10%;
-}
-.menubarblock{
-    height: 50px; border: 1px solid black;
-}
+        }       
+        
+
+
 html{
     margin: 0; padding: 0;
 }
@@ -122,15 +107,15 @@ transform: translateX(-10px) perspective(500px) rotateY(20deg) rotateX(0deg);
 }
 
 }
-@keyframes moveSlideMenu {
+/* @keyframes moveSlideMenu {
     from {
-        transform: translateX(100px);
+        transform: translate(0px);
     }
     to{
-        transform:  translateX(0px);
+        transform:  translateY(50px);
     }
     
-    }
+    } */
     .star-rating{
         margin-bottom: 10px;
     }
@@ -201,4 +186,37 @@ select{
 }
 #TNum{
     position: absolute;
+}
+#mainHome{
+	position: relative;
+	
+}
+#wrapper{
+	height:100px; position:relative; width:100%; background:white; 
+}
+#selDay,#selMon{ width:60px; height: 25px;}
+#menu{
+	position: absolute; right:20px;
+}
+.menubarblock{
+    height: 70px; border: 0.7px solid #787878; align-items: center;
+  justify-content: center; text-align: center;display: flex;
+  
+}
+.menuBarOpen{
+/*height: 350px;*/ width: 160px;
+opacity: 1; background-color:  rgb(252, 242, 242);
+position: fixed;
+top: 100px; right : 0; margin: 0;
+ z-index:2;
+border-radius: 0 0 0 10%;
+}
+a{
+	text-decoration: none;
+}
+li{
+   list-style-type: none;
+}
+ul{
+	padding:0;
 }
