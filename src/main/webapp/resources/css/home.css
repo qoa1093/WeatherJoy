@@ -185,7 +185,7 @@ select{
      height: 40px; position: absolute;
 }
 #TNum{
-    position: absolute;
+    position: absolute; height:50px; size:5; bottom:80px;
 }
 #mainHome{
 	position: relative;
