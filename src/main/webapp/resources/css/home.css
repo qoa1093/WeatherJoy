@@ -192,7 +192,7 @@ select{
 	
 }
 #wrapper{
-	height:100px; position:relative; width:100%; background:white; 
+	height:100px; position:relative; width:100%; background:silver; 
 }
 #selDay,#selMon{ width:60px; height: 25px;}
 #menu{
@@ -220,3 +220,12 @@ li{
 ul{
 	padding:0;
 }
+#containerCase{
+            display: flex;justify-content: center;align-items: center;
+            flex-direction: column;
+}
+.caseNumber{
+   border: 1px solid black; width:70%;
+   text-align: center;
+           
+        }

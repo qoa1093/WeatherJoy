@@ -200,13 +200,13 @@ var reCityName;
 var currentSet = 1;
 
 
-$(document).on('change', '[name="tourNum"]', function() {
+/*$(document).on('change', '[name="tourNum"]', function() {
         var selectedValue = $(this).val();
         console.log(selectedValue);
         
             show(selectedValue, reCityName); // 선택한 값으로 show() 함수 호출
         
-    });
+    });*/
 function tourType(){
     //12:관광지, 14:문화시설, 15:축제공연행사, 25:여행코스, 28:레포츠, 32:숙박, 38:쇼핑, 39:음식점
     
@@ -221,10 +221,22 @@ function tourType(){
                     '<option value="38">쇼핑</option>'+
                     '<option value="39">음식점</option>'+
                     '</select>';
-                    
-    //$('.recommendCard').removeClass("transed");
     return tourStr;
 }
+ $(document).on('change', '[name="tourNum"]', function() {
+                const selectedValue = $(this).val();
+                 //show(selectedValue, reCityName); 
+                // 선택된 데이터에 따라 URL 구성
+                const encodedSelectedValue = encodeURIComponent(selectedValue);
+    			const encodedReCityName = encodeURIComponent(reCityName);
+                const url = "/contentType?selectedValue=" + encodedSelectedValue + "&reCityName=" + encodedReCityName;               
+                // 해당 페이지로 이동
+                
+                console.log(url);
+                window.location.href = url;           
+        });
+
+
 $('.fa-circle-chevron-right').on('click', function() {
     console.log("totalSets: "+setFullNum + " "+ setNum);
     if (currentSet < setFullNum) {
@@ -282,25 +294,3 @@ function updateCardVisibility() {
                     '</div>';
            return {totalCityName, TCI_GRADE};
         }
-$(document).ready(function(){        
-var menubar = "<nav class='menuBarOpen'><ul>"
-			 +"<li class='menubarblock'><a href='#'>마이페이지</a></li>"
-			 +"<li class='menubarblock'>한줄리뷰게시판</li>"
-			 +"<li class='menubarblock'>이미지게시판</li></ul></nav>";
- $('#menu').append(menubar);
-    $(".menuBarOpen").hide();
-   $('#menu').on("click", function() {
-        $(".menuBarOpen").slideToggle();
-
-	})
-	$('.menubarblock').on("click",function(e){
-		e.stopPropagation();
-	
-	}) 
-})
-$(document).on("click", function (e) {
-   // 토글 영역이 아닌 영역을 클릭하면 토글을 숨김
-   if (!$(e.target).closest('.menuBarOpen').length) {
-       $(".menuBarOpen").slideUp();
-   }
-});

@@ -37,6 +37,7 @@
             </container>
     </form>
 </div>
+    <script src="/resources/js/home.js"></script>
     <%@include file="./includes/footer.jsp" %>
 </body>
 </html>
