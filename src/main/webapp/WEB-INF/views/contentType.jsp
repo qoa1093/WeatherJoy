@@ -4,7 +4,7 @@
 <%@ page session="false" %>
 
 <%@include file="./includes/header.jsp" %>
-<script src="/resources/js/header.js"></script>
+
 <h1 style="text-align:center">${reCityName}</h1>
  <div class="cb2">               
  </div>

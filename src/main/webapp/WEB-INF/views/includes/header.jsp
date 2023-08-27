@@ -12,10 +12,11 @@
 
     <title>날씨데이터</title>
     <script src="https://kit.fontawesome.com/e8200549ff.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>    
   	<link href="/resources/css/home.css" rel="stylesheet">
+  	<script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<script src="/resources/js/header.js"></script>
+	
  <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>  -->
     <!-- Bootstrap Core CSS -->
     <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
