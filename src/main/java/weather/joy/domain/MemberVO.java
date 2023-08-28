@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class MemberVO {
 	private String memId;
-	private long memNum;
+	private long memNum;//
 	private String memName;
 	private String memPw;
 	private int memAge;
@@ -15,7 +15,7 @@ public class MemberVO {
 	private String memAddr;
 	private String memHobby;
 	private String memAValid;
-	private Date memDate;
+	private Date memDate;//
 	
 	public String getId(long memNum) {
 		return this.memId;

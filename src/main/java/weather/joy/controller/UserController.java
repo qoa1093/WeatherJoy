@@ -68,4 +68,9 @@ public class UserController {
 		//mv.addAttribute("title", "회원가입");
 	    
 	}
+	@GetMapping("/signin")
+	public void signinGet(){
+		
+	    
+	}
 }

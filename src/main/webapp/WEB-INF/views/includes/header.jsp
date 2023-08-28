@@ -13,7 +13,7 @@
     <title>날씨데이터</title>
     <script src="https://kit.fontawesome.com/e8200549ff.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>    
-  	<link href="/resources/css/home.css" rel="stylesheet">
+  	<link href="${pageContext.request.contextPath}/resources/css/home.css" rel="stylesheet">
   	<script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	
@@ -44,8 +44,8 @@
                 <a  href="/" style="margin:0">
                 	<img src="${pageContext.request.contextPath}/resources/image/tourlogo.png" alt="로고 이미지" width="100" height="100" style="margin-top:0">
                 </a>
-                <a>로그인</a>
-                <a>회원가입</a>
+                <a href="/user/signin">로그인</a>
+                <a href="/user/signup">회원가입</a>
                 <a  id="menu" href="#" style="margin:0">
                 	<img src="${pageContext.request.contextPath}/resources/image/menu.png" alt="menu" width="100" height="100" style="margin-right:0">
                 </a>
