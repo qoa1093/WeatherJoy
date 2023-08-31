@@ -17,10 +17,10 @@
         .fa-solid.fa-circle-check{
             appearance: none; display: none;
         }
-        .dupleLabel, .selfLabel:hover{
+        .dupleLabel, .selfLabel:hover,.hobbyLabel{
             cursor: pointer;
         }
-        #dupleID, #selfID {
+        #dupleID, #selfID,.hobbyBox {
             border: none;  border-style: hidden; color: rgb(255, 255, 255);
             width: 20px;
             height: 20px;
@@ -30,7 +30,7 @@
             /*appearance: none; naver에서는 보이지 않게 처리하고 label :before 형식으로 처리함*/
 
         }
-        .dupleIdCheck, .selfIdCheck{
+        .dupleIdCheck, .selfIdCheck,.hobby{
             font-size: small;
         }
         .centerClass{
