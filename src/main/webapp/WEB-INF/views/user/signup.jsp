@@ -16,13 +16,13 @@
                     </label>
                     <p></p>
                     <input type="password" name="memPW" class="weatherSignUp"id="weatherPwd" placeholder="비밀번호를 입력하세요.">
-                    <p/>
-                    <input type="password" name="memPw" class="weatherSignUp"id="weatherPwd" placeholder="비밀번호를 재입력하세요.">
-                    <p/>
+                    <p></p>
+                    <input type="password" name="memPw2" class="weatherSignUp"id="" placeholder="비밀번호를 재입력하세요.">
+                    <p></p>
                     <input type="text" class="weatherSignUp" id="memName" placeholder="이름을 입력하세요.">
-                    <p/>
+                    <p></p>
                     <input type="text" class="weatherSignUp" id="memAge" placeholder="나이를 입력하세요.">
-                    <p/>
+                    <p></p>
                     <input type="text" class="weatherSignUp" id="memPhone" placeholder="핸드폰 번호를 -빼고 입력하세요.">
                     <label class="selfLabel"><input id="selfID" type="checkbox">
                         <i class="fa-regular fa-circle-check" style="color: #ffbd80;"></i>
