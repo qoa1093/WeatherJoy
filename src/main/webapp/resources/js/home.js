@@ -1,10 +1,39 @@
 function init(){
-            var newDate = new Date();
-            newDate.setDate(newDate.getDate()-1);
+			 const options = {
+		        timeZone: 'Asia/Seoul',
+		        timeZoneName: 'short',
+		        year: 'numeric',
+		        month: '2-digit',
+		        day: '2-digit',
+		    };
+		
+		    var newDate = new Date().toLocaleString('en-US', options);
+			console.log(newDate);
+		    let year = newDate.substring(6,10);
+		    let mon = newDate.substring(0,2);
+		    let day = newDate.substring(3,5);
+            $('#txtYear').val(year);
+            
+            //var newDate = new Date();
+            //newDate.setDate(newDate.getDate()-1);
+			$('#txtYear').val(year);
+			mon = parseInt(mon);
+            
+            if(mon<10){
+                mon = "0" + mon;
+            }
+            $("#selMon").val(mon);
 
-            $('#txtYear').val(newDate.getFullYear());
+            d = parseInt(day);
+            if(d<10){
+                d = "0" + d;
+            }
+            $('#selDay').val(d);
 
+            /*$('#txtYear').val(newDate.getFullYear());
+			console.log(newDate.getMonth());
             var mon = newDate.getMonth()+1;
+            
             if(newDate.getMonth()<10){
                 mon = "0" + mon;
             }
@@ -14,8 +43,8 @@ function init(){
             if(newDate.getDate()<10){
                 d = "0" + d;
             }
-            $('#selDay').val(d);
-        }
+            $('#selDay').val(d);*/
+}
         function getDate(){
             var newDate = new Date();
             newDate.setDate(newDate.getDate());

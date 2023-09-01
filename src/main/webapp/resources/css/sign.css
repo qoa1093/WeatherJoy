@@ -11,16 +11,16 @@
         cursor: pointer;
        }
        
-        input[type="checkbox"]:checked {
+        input[type="checkbox"]/* :checked */ {
          border-radius: 50%; appearance: none;
         }
         .fa-solid.fa-circle-check{
-            appearance: none; display: none;
+            /* appearance: none; */ display: none;
         }
         .dupleLabel, .selfLabel:hover,.hobbyLabel{
             cursor: pointer;
         }
-        #dupleID, #selfID,.hobbyBox {
+        #dupleID, #selfID/*, .hobbyBox */ {
             border: none;  border-style: hidden; color: rgb(255, 255, 255);
             width: 20px;
             height: 20px;
@@ -30,7 +30,7 @@
             /*appearance: none; naver에서는 보이지 않게 처리하고 label :before 형식으로 처리함*/
 
         }
-        .dupleIdCheck, .selfIdCheck,.hobby{
+        .dupleIdCheck, .selfIdCheck{
             font-size: small;
         }
         .centerClass{
@@ -58,4 +58,24 @@
         }
         .sign.signUpBtn{
             color:#ffbd80;
+        }
+        span{ font-size: small; font-weight: bold;}
+        .centerCss{
+         	display: flex;            
+            justify-content: center;
+            align-items: center;
+            text-align:center;
+        }
+        input[type="radio"] {
+		    appearance: none; /* 기본 라디오 버튼 스타일 제거 */
+		    width: 18px; /* 라디오 버튼 너비 */
+		    height: 18px; /* 라디오 버튼 높이 */
+		    border: 1px solid white; /* 선택되지 않은 라디오 버튼 테두리 스타일 */
+		    border-radius: 50%; /* 원 모양으로 스타일링 */
+		    outline: none; /* 선택 표시 제거 */
+		    background-color: white; /* 배경색 */
+		}
+        input[type="radio"]:checked{
+        		background-color:#ffbd80;
+        		border: 0px;
         }

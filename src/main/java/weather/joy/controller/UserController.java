@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import weather.joy.domain.Criteria;
+import weather.joy.domain.MemberVO;
 import weather.joy.domain.PageDTO;
 
 @Controller
@@ -72,5 +73,10 @@ public class UserController {
 	public void signinGet(){
 		
 	    
+	}
+	@PostMapping("/signupPost")
+	public String signupPost(MemberVO user) {
+		log.info(user);
+		return "home";
 	}
 }
