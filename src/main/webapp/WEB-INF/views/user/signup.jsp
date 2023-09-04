@@ -84,7 +84,7 @@
 	                    <i class="fa-solid fa-circle-check" style="color: #fbcb46;"></i>
                     <input type="checkbox" class="hobby" name="checkboxes" value="39">음식점&nbsp;
                     </span>
-                    <input id="selectedValues" type="" name="memHobby">
+                    <input id="selectedValues"  name="memHobby">
                     </p>
                     <span>반려동물 여부</span>
 					<p class="centerCss">                    
@@ -140,25 +140,11 @@ $(document).ready(function(){
     	})
     	
     }) */
-    
-     /*     $(document).ready(function() {
-                var selectedValues = [];
-                $(".signup-wrapper").on("click",'.Lclick',function(e) {
-                console.log($(this).find('input[type="checkbox"]').val());
-                
-                selectedValues.push($(this).find('input[type="checkbox"]').val());
-                console.log(selectedValues);
-                    
-                });
-                var result = selectedValues.join(', ');
-                console.log("결과:"+result);
-                $("#selectedValues").text(result);
-            });  */
             
             $(document).ready(function() {
                 var selectedValues = [];
 
-                $(".signup-wrapper").on("click", '.Lclick', function (e) {
+                $(".signup-wrapper").on("click", '.Lclick', function(e) {
                     var checkbox = $(this).find('input[type="checkbox"]');
                     var value = checkbox.val();
                    	var index = selectedValues.indexOf(value);

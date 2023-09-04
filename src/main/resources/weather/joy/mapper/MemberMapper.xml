@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="weather.joy.mapper.MemberMapper">
+
+<sql id="criteria">
+
+<trim  prefix="(" suffix = ") AND">
+ 	<foreach collection="typeArr" item="type" separator="or">
+ 		<choose>
+ 		<when test="type == 'I'.toString()">
+ 		  	memId like '%'||#{keyword}||'%'
+ 		</when>
+ 		<when test="type == 'N'.toString()">
+ 		  	memName like '%'||#{keyword}||'%'
+ 		</when>
+ 		<when test="type == 'R'.toString()">
+ 		    memDate like '%'||#{keyword}||'%'
+ 		  <!--DATE_FORMAT(regdate, '%d') = #{keyword}-->
+ 		</when>
+ 		<when test="type == 'A'.toString()">
+ 		  	memAddr like '%'||#{keyword}||'%'
+ 		</when>
+ 		</choose>
+ 	</foreach>
+ 	</trim>	
+ 	</sql>
+
+<select id="getUserList" resultType="weather.joy.domain.MemberVO">
+
+select * FROM member memId order by memId desc
+
+</select>
+<select id="getListWithPaging" resultType="weather.joy.domain.MemberVO">
+<![CDATA[
+select 
+memId, memNum, memName, memPw, memAddr, memPhone, memDate,memAge, memHobby,memAValid
+from(
+select 
+/*+ INDEX_DESC(member pk_user)*/
+	rownum rn, memId, memNum,memName, memPw, memAddr, memPhone, memDate,memAge, memHobby,memAValid
+		from 
+		member 
+			where 
+			]]>
+			<include refid="criteria"></include>
+			
+<![CDATA[
+			rownum <= #{pageNum} * #{amount}
+		)
+		where rn > (#{pageNum} -1) * #{amount}
+
+]]>
+</select>
+
+<select id="getTotalCount" resultType="int">
+	select count(*) from member where 
+	
+	<include refid="criteria"></include>
+	memId != ' ' 
+</select>
+<!-- <insert id="insertUserNum" useGeneratedKeys="true" keyProperty="memNum">
+    insert into userwj(memNum)
+    values(seq_member.nextval)
+</insert>
+ -->
+<insert id="insertUserNum">
+    <!-- 시퀀스 값을 먼저 가져오도록 BEFORE 옵션 사용 -->
+    <selectKey keyProperty="memNum" resultType="long" order="BEFORE">
+        SELECT seq_member.nextval FROM dual
+    </selectKey>
+    
+    <!-- 이후에 memNum을 사용하여 userwj 테이블에 삽입 -->
+    insert into userwj(memNum)
+    values(#{memNum})
+</insert>
+<delete id="deleteUserNum">
+delete from userwj where memNum=#{memNum}
+</delete>
+<insert id = "insertUser">
+insert into member (memNum,memId, memName, memPw, memAddr, memPhone, memAge, memHobby, memAValid)
+values (#{memNum},#{memId}, #{memName}, #{memPw}, #{memAddr}, #{memPhone},#{memAge}, #{memHobby},#{memAValid})
+</insert>
+
+<select id="read" resultType="weather.joy.domain.MemberVO">
+	select * from member where memNum = #{memNum}
+</select>
+
+<delete id="delete">
+	delete from member where memNum = #{memNum}
+</delete>
+
+<update id="update">
+update member
+	set memNum = #{memNum},
+		memId=#{memId}, 
+		memName=#{memName}, 
+		memPw=#{memPw},
+		memAge=#{memAge}, 
+		memPhone = #{memPhone},
+		memAddr=#{memAddr},
+		memHobby=#{memHobby}
+		memAValid=#{memAValid} 
+		
+			where memId=#{memId}
+
+</update>
+
+</mapper>

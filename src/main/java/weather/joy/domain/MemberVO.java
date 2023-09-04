@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-	private String memId;
 	private long memNum;//
+	private String memId;
 	private String memName;
 	private String memPw;
 	private int memAge;
