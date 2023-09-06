@@ -63,13 +63,13 @@ select
 	<include refid="criteria"></include>
 	memId != ' ' 
 </select>
-<!-- <insert id="insertUserNum" useGeneratedKeys="true" keyProperty="memNum">
+<!-- <insert id="insertUserNum">
     insert into userwj(memNum)
     values(seq_member.nextval)
-</insert>
- -->
+</insert> -->
+
 <insert id="insertUserNum">
-    <!-- 시퀀스 값을 먼저 가져오도록 BEFORE 옵션 사용 -->
+    <!--  시퀀스 값을 먼저 가져오도록 BEFORE 옵션 사용-->
     <selectKey keyProperty="memNum" resultType="long" order="BEFORE">
         SELECT seq_member.nextval FROM dual
     </selectKey>

@@ -32,19 +32,27 @@ public class MemberMapperTests {
 	@Test
 	public void testInsert() {
 		
-		long memNum= mapper.insertUserNum(user);
-		//mapper.deleteUserNum(8);
-		log.info("---------"+memNum);
+		mapper.insertUserNum(user);
+		long mem= user.getMemNum();
 		
-		/*
-		 * user.setMemId("user006"); user.setMemName("김유저1"); user.setMemPw("user001!");
-		 * user.setMemAddr("경북 구미시"); user.setMemPhone("010-2344-5522");
-		 * user.setMemAge(27); user.setMemAValid("N"); user.setMemHobby("38,39");
-		 */
-		  //user.setMemNum(memNum);
+		//mapper.deleteUserNum(8);
+		log.info("---------"+mem);
+		
+		
+		  user.setMemId("user007"); 
+		  user.setMemName("김유저1"); 
+		  user.setMemPw("user001!");
+		  user.setMemAddr("경북 구미시"); 
+		  user.setMemPhone("010-2344-5522");
+		  user.setMemAge(27); 
+		  user.setMemAValid("N"); 
+		  user.setMemHobby("38,39");
 		  
-		  log.info(user);
-		  //mapper.insertUser(user);
+		  user.setMemNum(mem);
+		  
+		  log.info(user); 
+		  mapper.insertUser(user);
+		 
 		 
 		
 		//log.info(user);
