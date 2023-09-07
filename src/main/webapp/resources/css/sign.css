@@ -44,9 +44,7 @@
         .centerbtn{
             padding-top: 240px;
         }
-        .weatherSignUp{
-            height: 20px; width:  200px; border-style: hidden;
-        }
+       
         .weatherSignUp:focus{
             outline: none; color: burlywood;
         }
@@ -78,4 +76,14 @@
         input[type="radio"]:checked{
         		background-color:#ffbd80;
         		border: 0px;
+        }
+         .weatherSignUp{
+            height: 20px; width:  200px; border-style: hidden;
+        }
+        .mini{
+        	width:100px;
+        }
+        
+        #searchBtn{
+        	float:none;
         }

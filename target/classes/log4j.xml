@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="weather.joy.tour">
+	<logger name="weather.joy.controller">
 		<level value="info" />
 	</logger>
 	

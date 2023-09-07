@@ -87,7 +87,7 @@ values (#{memNum},#{memId}, #{memName}, #{memPw}, #{memAddr}, #{memPhone},#{memA
 </insert>
 
 <select id="read" resultType="weather.joy.domain.MemberVO">
-	select * from member where memNum = #{memNum}
+	select * from member where memId = #{memId}
 </select>
 
 <delete id="delete">

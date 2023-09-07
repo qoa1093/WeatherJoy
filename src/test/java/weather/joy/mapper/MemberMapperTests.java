@@ -66,13 +66,13 @@ public class MemberMapperTests {
 	
 	@Test
 	public void testRead() {
-		MemberVO user = mapper.read("user");
+		MemberVO user = mapper.read("56");
 		log.info(user);
 	}
 	
 	@Test
 	public void testDelete() {
-		int a = mapper.delete("user006");
+		int a = mapper.delete(56);
 		log.info("delete count:" + a);
 	}
 	

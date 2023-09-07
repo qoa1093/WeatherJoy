@@ -1,5 +1,7 @@
 package weather.joy.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +16,15 @@ import lombok.extern.log4j.Log4j;
 import weather.joy.domain.Criteria;
 import weather.joy.domain.MemberVO;
 import weather.joy.domain.PageDTO;
+import weather.joy.service.MemberService;
 
 @Controller
 @Log4j
-@RequestMapping("/user/*")
+@RequestMapping("/member/*")
 @AllArgsConstructor
-public class UserController {
-	//private UserService service;
-	
+public class MemberController {
+	 private MemberService service;
+
 	/*
 	 * @GetMapping("/list") public void list(Model model, Criteria cri) {
 	 * log.info("list"); model.addAttribute("list", service.getList(cri)); int total
@@ -34,13 +37,7 @@ public class UserController {
 	 * 
 	 * }
 	 * 
-	 * @PostMapping("/register") public String register(UserVO user,
-	 * RedirectAttributes rttr) { log.info("register : " + user);
-	 * service.register(user); rttr.addFlashAttribute("result", user.getUserid());
 	 * 
-	 * return "redirect:/user/list";
-	 * 
-	 * }
 	 * 
 	 * @PostMapping("/modify") public String modify(UserVO
 	 * user, @ModelAttribute("cri") Criteria cri ,RedirectAttributes rttr) {
@@ -65,18 +62,29 @@ public class UserController {
 	 * service.getRead(userid)); }
 	 */
 	@GetMapping("/signup")
-	public void signupGet(){
-		//mv.addAttribute("title", "회원가입");
-	    
+	public void signupGet(Model model) {
+		List<MemberVO> userList = service.getUserList();
+		log.info(userList);
+		model.addAttribute("List", userList);
+		// mv.addAttribute("title", "회원가입");
+		//log.info("회원가입창 출력");
 	}
+
 	@GetMapping("/signin")
-	public void signinGet(){
+	public void signinGet() {
+
+	}
+
+	@PostMapping("/signup")
+	public String signupPost(MemberVO user,RedirectAttributes rttr) {
+		log.info("유저:"+user);
+		//log.info("찍혀라~~~");
+		//service.register(user);
+		//rttr.addFlashAttribute("result", user.getMemId());
 		
-	    
+		
+		return "redirect:/"/* "home" */;
+		
 	}
-	@PostMapping("/signupPost")
-	public String signupPost(MemberVO user) {
-		log.info(user);
-		return "home";
-	}
+
 }

@@ -19,13 +19,11 @@ public interface MemberMapper {
 		
 		public MemberVO read(String userid);
 		
-		public int delete(String userid);
+		public int delete(long memNum);
 		
 		public int update(MemberVO user);
 		
 		public long insertUserNum(MemberVO user);
-		
-		public long selectUserNum();
 		
 		public void deleteUserNum(long memNum);
 		

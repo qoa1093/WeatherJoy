@@ -44,8 +44,8 @@
                 <a  href="/" style="margin:0">
                 	<img src="${pageContext.request.contextPath}/resources/image/tourlogo.png" alt="로고 이미지" width="100" height="100" style="margin-top:0">
                 </a>
-                <a href="/user/signin">로그인</a>
-                <a href="/user/signup">회원가입</a>
+                <a href="/member/signin">로그인</a>
+                <a href="/member/signup">회원가입</a>
                 <a  id="menu" href="#" style="margin:0">
                 	<img src="${pageContext.request.contextPath}/resources/image/menu.png" alt="menu" width="100" height="100" style="margin-right:0">
                 </a>
