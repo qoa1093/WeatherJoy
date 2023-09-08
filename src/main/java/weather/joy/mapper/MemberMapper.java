@@ -26,5 +26,7 @@ public interface MemberMapper {
 		public long insertUserNum(MemberVO user);
 		
 		public void deleteUserNum(long memNum);
+
+		public MemberVO selectMemberId(String memId);
 		
 }

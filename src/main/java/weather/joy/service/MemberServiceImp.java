@@ -63,4 +63,10 @@ public class MemberServiceImp implements MemberService{
 		
 		return mapper.delete(memNum);
 	}
+	@Override
+	public MemberVO getMemId(String memId) {
+		if(memId == null)
+			return null;
+		return mapper.selectMemberId(memId);
+	}
 }

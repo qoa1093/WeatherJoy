@@ -13,4 +13,5 @@ public interface MemberService {
 	public int delete(long memNum);
 	public int getTotal(Criteria cri);
 	public List<MemberVO> getList(Criteria cri);
+	public MemberVO getMemId(String memId);
 }

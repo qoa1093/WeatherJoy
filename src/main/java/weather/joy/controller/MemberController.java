@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.AllArgsConstructor;
@@ -86,5 +87,10 @@ public class MemberController {
 		return "redirect:/"/* "home" */;
 		
 	}
-
+	@ResponseBody
+	@PostMapping(value="/idCheck")
+	public String idCheck(String memId) {
+		return service.getMemId(memId) != null ? "FAIL" : "OK";
+	}
+	
 }

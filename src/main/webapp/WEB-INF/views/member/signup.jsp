@@ -34,11 +34,6 @@
                     <input type="text" class="weatherSignUp" name="memAge" placeholder="나이를 입력하세요.">
                     <p></p>
                     <input type="text" class="weatherSignUp" name="memPhone" placeholder="핸드폰 번호를 -빼고 입력하세요.">
-                    <span class="duplespan"><input id="selfID" type="checkbox">
-                        <i class="fa-regular fa-circle-check" style="color: #ffbd80;"></i>
-                        <i class="fa-solid fa-circle-check" style="color: #fbcb46;"></i>
-                        <span class="selfIdCheck">본인인증</span>
-                    </span>
                     <p></p>
                     <div class="address">
 					<input type="text" class="weatherSignUp mini" id="postcode" size="3" placeholder="우편번호">
@@ -56,7 +51,7 @@
 		
                     <span>관심분야(여러개 가능)</span>
                     <p id="checkedList">
-                    <span class="Lclick duplespan">
+                    <span class="Lclick hobbyspan">
                     <input type="checkbox" class="hobbyBox" name="checkboxes" value="12">
                     	<i class="fa-regular fa-circle-check" style="color: #ffbd80;"></i>
                         <i class="fa-solid fa-circle-check" style="color: #fbcb46;"></i>관광&nbsp;
@@ -117,9 +112,13 @@
                     
                     <p></p>
                     <button type="submit" class="sign signUp-Btn" id="signUp-Btn">가입하기</button> 
-                    <button type="reset" class="sign "><a href="">재등록</a></button>
+                    <button type="reset" class="sign ">재등록</button>
+                    <p id="autoLogin">
+                    <input type="checkbox" >자동로그인
+                    </p>
            </form>
-        </div>   
+           <p class="Logologin kakao"><img src="${pageContext.request.contextPath}/resources/image/kakao_login.png" alt="kakao" style="margin-right:0"></p>
+           
     </div>
 </body>
 <script>
@@ -138,7 +137,7 @@ $(document).ready(function(){
         }
     }); */
     //아이디 중복 체크
-    $('.signup-wrapper').on("click",'.duplespan',function(e){
+    /* $('.signup-wrapper').on("click",'.duplespan',function(e){
     	//e.preventDefault();
     	var List = ${List};
     	console.log(List);
@@ -155,7 +154,7 @@ $(document).ready(function(){
     	}else{
     		console.log("비었다!")
     	}
-    	})
+    	}) */
     	 
     //주소값을 합해서 히든 인풋 창에 넣어서 name속성을 타고 보내기
     $('.address').change(function(){
@@ -189,6 +188,55 @@ $(document).ready(function(){
         }
  
     })
+    //id중복검사
+    $('.signup-wrapper').on("click",'.duplespan',function(e){
+    	
+       	var memId = $('#memId').val();
+       	console.log(memId);
+       	if(memId == null || memId == ''){
+   			alert('아이디를 입력하세요.');
+   			$(this).find('.fa-solid').hide();
+       		$(this).find('.fa-regular').show();
+   			return;
+   		}
+       	/* var idRegex = /^[a-z0-9_-]{5,20}$/;
+       	if(!idRegex.test(memId))
+       		return; */
+       	var res = memberService.idCheck(contextPath, memId);
+       	//console.log(res);
+       	if(res)
+       		alert('사용 가능한 아이디입니다.')
+       	else{
+       		alert('이미 가입된 아이디입니다.')
+       		$(this).find('.fa-solid').hide();
+       		$(this).find('.fa-regular').show();
+       	}
+     })
+var contextPath = '<%=request.getContextPath()%>';
+var memberService = (function(){
+	function idCheck(contextPath, memId){		
+		var flag = false;
+		$.ajax({
+			async: false,
+    		type : 'post',
+    		url  : contextPath + '/member/idCheck',
+    		data : {memId : memId},
+    		success : function (res){
+    			if(res == 'OK'){
+    				flag = true;
+    			}else{
+    				flag = false;
+    			}
+    		}
+    	})
+    	return flag;
+	}
+	return {
+		name : 'memberService',
+		idCheck : idCheck, 
+	}
+})();
+    
 })
     </script>
     <script>

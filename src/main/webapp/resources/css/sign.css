@@ -5,7 +5,7 @@
         position: absolute; top: 260px;         }
        a {
         text-decoration: none; color: rgb(59, 0, 0); font-weight: 40% ; 
-            margin: 10px; font-size: small;
+            margin: 10px; font-size: small; 
        }
        button:hover{
         cursor: pointer;
@@ -39,6 +39,7 @@
             background-color: bisque;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             
         }
         .centerbtn{
@@ -63,7 +64,10 @@
             justify-content: center;
             align-items: center;
             text-align:center;
+        	margin-right : 50px;
         }
+     
+        
         input[type="radio"] {
 		    appearance: none; /* 기본 라디오 버튼 스타일 제거 */
 		    width: 18px; /* 라디오 버튼 너비 */
@@ -87,3 +91,18 @@
         #searchBtn{
         	float:none;
         }
+        .Logologin{
+         cursor: pointer;margin-top: 10px; margin-right:130px;
+        }
+        #autoLogin{
+        	border: 1px solid white; float:none;
+        	position: relative;  margin-left: 5px; margin-right: 5px;
+            border-radius: 1dvh; width: 190px; background-color: white; 
+            background-color:#ffbd80; height:20px; margin-top:40px; border-style:none;
+            color:white; font-size: middle;
+            cursor:pointer;
+        }
+        #autoLogin input{
+            text-align:center; margin-left:60px;
+        }
+       
