@@ -67,7 +67,11 @@ select
     insert into userwj(memNum)
     values(seq_member.nextval)
 </insert> -->
+<insert id="insertSocialUser">
+insert into social(soId,memNum,soEmail, soToken, snsType)
+	values(#{soId},#{memNum},#{soEmail}, #{soToken}, #{snsType})
 
+</insert>
 <insert id="insertUserNum">
     <!--  시퀀스 값을 먼저 가져오도록 BEFORE 옵션 사용-->
     <selectKey keyProperty="memNum" resultType="long" order="BEFORE">

@@ -94,12 +94,12 @@
         .Logologin{
          cursor: pointer;margin-top: 10px; margin-right:130px;
         }
-        #autoLogin{
-        	border: 1px solid white; float:none;
+        .signUp-Btn{
+        	border: 1px solid white; float:left;
         	position: relative;  margin-left: 5px; margin-right: 5px;
-            border-radius: 1dvh; width: 190px; background-color: white; 
-            background-color:#ffbd80; height:20px; margin-top:40px; border-style:none;
-            color:white; font-size: middle;
+            border-radius: 1dvh; width: 90px; background-color: white; 
+            background-color:#ffbd80; border-style:none;
+            color:white; 
             cursor:pointer;
         }
         #autoLogin input{

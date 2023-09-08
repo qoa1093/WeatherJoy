@@ -5,13 +5,15 @@
 <link href="${pageContext.request.contextPath}/resources/css/sign.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/resources/js/address.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js" 
+  	integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH" crossorigin="anonymous"></script>
     <div class="centerClass">
         <!--  <div class="centerbtn">-->
             <!--  <p id="weatherLogo">날씨조이</p>-->
           <%--   <c:forEach items="${List}" var="list">
             <c:out value="${list.memId}" />
             </c:forEach> --%>
-            <form action="/member/signup" method="post" autocomplete="off" role="form" accept-charset="UTF-8">
+            <form action="/member/signup" method="post" id="myform" autocomplete="off" role="form" accept-charset="UTF-8">
            <!-- <form id="myform"> -->
                 <div class="signup-wrapper">
                     <input type="text" class="weatherSignUp" name="memId" id="memId" placeholder="아이디를 입력하세요.">
@@ -49,7 +51,7 @@
                     <p></p>
 		
 		
-                    <span>관심분야(여러개 가능)</span>
+                    <span>관심분야(1개 이상 반드시 선택)</span>
                     <p id="checkedList">
                     <span class="Lclick hobbyspan">
                     <input type="checkbox" class="hobbyBox" name="checkboxes" value="12">
@@ -111,11 +113,8 @@
                     <p/>
                     
                     <p></p>
-                    <button type="submit" class="sign signUp-Btn" id="signUp-Btn">가입하기</button> 
+                    <button type="button" class="sign signUp-Btn" id="signUp-Btn">가입하기</button> 
                     <button type="reset" class="sign ">재등록</button>
-                    <p id="autoLogin">
-                    <input type="checkbox" >자동로그인
-                    </p>
            </form>
            <p class="Logologin kakao"><img src="${pageContext.request.contextPath}/resources/image/kakao_login.png" alt="kakao" style="margin-right:0"></p>
            
@@ -124,7 +123,17 @@
 <script>
 $(document).ready(function(){
 	//console에 form 내용 전체 찍어보는 코드
-/* 	const form = document.getElementById('myform');
+$(".centerClass").on("click",'#signUp-Btn',function(e) {
+var form = document.getElementById('myform');
+var formData = new FormData(form);
+    for (const [key, value] of formData.entries()) {
+    	 console.log(key + ':', value);
+    	 if (!value || value.trim() === '') return;
+    }
+    form.submit();
+})
+
+/*
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // 폼의 기본 동작을 막습니다.
 
@@ -155,8 +164,30 @@ $(document).ready(function(){
     		console.log("비었다!")
     	}
     	}) */
-    	 
-    //주소값을 합해서 히든 인풋 창에 넣어서 name속성을 타고 보내기
+    	
+    	
+    	Kakao.init('9f52d1abb56bf20aa9452032fd446672');
+		Kakao.isInitialized();
+		console.log(Kakao.isInitialized());
+    	$(".centerClass").on("click",'.kakao',function(e){
+    		Kakao.Auth.authorize()
+    		console.log("눌렸다");
+    		
+    		doKakaoLogin()
+    		
+    	}) 
+    	function doKakaoLogin() {
+    		       const url = 'https://kauth.kakao.com/oauth/authorize?client_id=' +
+    		      '9f52d1abb56bf20aa9452032fd446672' +
+    		          '&redirect_uri=http://127.0.0.1:8080/oauth/kakao' +
+    		          '&response_type=code&'+
+    		          'scope=account_email'  
+    		          
+    		          window.location.href = url;  
+    		}
+    
+    	
+    	//주소값을 합해서 히든 인풋 창에 넣어서 name속성을 타고 보내기
     $('.address').change(function(){
    	 var ad1 = $('#postcode').val();
         var ad2 = $('#address').val();

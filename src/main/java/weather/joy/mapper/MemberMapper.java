@@ -4,6 +4,7 @@ package weather.joy.mapper;
 import java.util.List;
 import weather.joy.domain.Criteria;
 import weather.joy.domain.MemberVO;
+import weather.joy.domain.SocialVO;
 
 public interface MemberMapper {
 	
@@ -28,5 +29,7 @@ public interface MemberMapper {
 		public void deleteUserNum(long memNum);
 
 		public MemberVO selectMemberId(String memId);
+
+		public void insertSocialUser(SocialVO kakao);
 		
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import weather.joy.domain.Criteria;
 import weather.joy.domain.MemberVO;
+import weather.joy.domain.SocialVO;
 
 public interface MemberService {
 	public List<MemberVO> getUserList();
@@ -14,4 +15,5 @@ public interface MemberService {
 	public int getTotal(Criteria cri);
 	public List<MemberVO> getList(Criteria cri);
 	public MemberVO getMemId(String memId);
+	public SocialVO getSocialData(String code);
 }
