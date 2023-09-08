@@ -63,9 +63,9 @@ public class MemberController {
 	 * service.getRead(userid)); }
 	 */
 	@GetMapping("/signup")
-	public void signupGet(Model model) {
+	public void signupGet(Model model) throws Exception{
 		List<MemberVO> userList = service.getUserList();
-		log.info(userList);
+		//log.info(userList);
 		model.addAttribute("List", userList);
 		// mv.addAttribute("title", "회원가입");
 		//log.info("회원가입창 출력");
@@ -77,7 +77,8 @@ public class MemberController {
 	}
 
 	@PostMapping("/signup")
-	public String signupPost(MemberVO user,RedirectAttributes rttr) {
+	public String signupPost(MemberVO user/* ,RedirectAttributes rttr */) {
+		if(user==null) return "redirect:/member/signup";
 		log.info("유저:"+user);
 		//log.info("찍혀라~~~");
 		//service.register(user);
