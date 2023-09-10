@@ -73,7 +73,7 @@ public class MemberController {
 
 	@GetMapping("/signin")
 	public void signinGet() {
-
+	
 	}
 
 	@PostMapping("/signup")
@@ -86,6 +86,16 @@ public class MemberController {
 		
 		
 		return "redirect:/"/* "home" */;
+		
+	}
+	@PostMapping("/signin")
+	public String signinPost(MemberVO user) {
+		log.info("유저:"+user);
+		if(user.getMemId()==""|user.getMemPw()=="") return "redirect:/member/signin";
+		
+		//service.(user);
+				
+		return "redirect:/";
 		
 	}
 	@ResponseBody

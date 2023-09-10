@@ -8,6 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인 화면</title>
     <script src="https://kit.fontawesome.com/e8200549ff.js" crossorigin="anonymous"></script>
+   <%--  <link href="${pageContext.request.contextPath}/resources/css/sign.css" rel="stylesheet"> --%>
+  	<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js" 
+  		integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
     <style>
        #weatherLogo{
         font-size: 40px;
@@ -44,7 +48,7 @@
             display: flex; height: 800px;
             background-color: bisque;
             justify-content: center;
-            align-items: center;
+            align-items: center;flex-direction: column;
             
         }
         .centerbtn{
@@ -65,18 +69,29 @@
         .sign.signUpBtn{
             color:#ffbd80;
         }
+        .Logologin{
+         cursor: pointer;
+        } 
+        .weatherLogo img{
+         position: absolute; top:180px; text-align: center;
+         height:200px; width:200px; cursor: pointer;
+        }
+        
+      
     
     </style>
 </head>
 <body>
     <div class="centerClass">
-        <p id="weatherLogo">날씨술잔</p>
         <div class="centerbtn">
-            <form action="" method="post" autocomplete="off">
+    	<a class="weatherLogo" href="/"><img src="${pageContext.request.contextPath}/resources/image/tourlogo.png" alt="로고 이미지" style="margin-top:0"></a>
+	       <!--  <p id="weatherLogo">날씨조이</p> -->
+	       <!--action=""  method="post"  -->
+            <form  autocomplete="off" role="form">
                 <div class="">
-                    <input type="text" class="weatherIdPwd" id="weatherId">
+                    <input type="text" class="weatherIdPwd" id="weatherId" name="memId">
                     <p></p>
-                    <input type="password" name="" class="weatherIdPwd"id="weatherPwd">
+                    <input type="password" name="memPw" class="weatherIdPwd"id="weatherPwd">
                 </div>
                 <label class="autoLabel"><input id="autoLogin" type="checkbox">
                     <i class="fa-regular fa-circle-check" style="color: #ffbd80;"></i>
@@ -87,16 +102,92 @@
                     <a href=""> 비밀번호찾기 </a> <a href=""> 아이디찾기 </a>
                     <p></p>
                     <button type="submit"  class="sign signInBtn" id="signInBtn">로그인</button> 
-                    <button class="sign signUpBtn"><a href="">회원가입</a></button>
+                    <button class="sign signUpBtn"><a href="/member/signup">회원가입</a></button>
                     </form>
                 </div>
+                    <p class="Logologin kakao"><img src="${pageContext.request.contextPath}/resources/image/kakao_login.png" alt="kakao" style="margin-right:0"></p>
             </div>
 </body>
 <script>
+$(document).ready(function(){
     var loginAlert = document.getElementById('signInBtn');
+    let formObj = $("form");
     loginAlert.addEventListener('click', function() {
-        alert('로그인 되었습니다.');
+        //alert('로그인 되었습니다.');
+    	formObj.attr("action","/member/signin").attr("method","post").submit();
+        
     })
- 
+ 		Kakao.init('9f52d1abb56bf20aa9452032fd446672');
+		Kakao.isInitialized();
+		console.log(Kakao.isInitialized());
+    	$(".centerClass").on("click",'.kakao',function(e){
+    		//Kakao.Auth.authorize()
+    		//console.log("눌렸다");
+    		
+    		doKakaoLogin()
+    		
+    		
+    		
+    		
+    	}) 
+    	function doKakaoLogin() {
+    		       const url = 'https://kauth.kakao.com/oauth/authorize?client_id=' +
+    		      '9f52d1abb56bf20aa9452032fd446672' +
+    		          '&redirect_uri=http://127.0.0.1:8080/oauth/kakao' +
+    		          '&response_type=code&'+
+    		          'scope=account_email'  
+    		          
+    		       window.location.href = url;
+    		       
+    		       
+    		       
+    		       socialService.getKaKao({code:code},function(code){
+    		    	   alert("YS");
+    		    	   console.log(kakaoLogin);
+    		    	   window.location.href = "/";
+    		       });
+    		      
+    		       
+    		}
+})
+var socialService = (function(){
+	function getKaKao(param, callback, error){
+		
+		 $.ajax({
+			 	type:'post',
+			 	url:'/oauth/kakao',
+			 	data:JSON.stringify(param),
+			 	contentType:"application/json; charset=utf-8",
+			 	success : function(result, status, xhr){
+			 		if(callback){
+			 			callback(result);
+			 		}
+			 	},
+			 	error: function(xhr, status, er){
+			 		if(error){
+			 			error(er);
+			 		}
+			 	} 
+			 })
+		/* 
+		
+		$.getJSON("/oauth/kakao/",
+			function(param){
+				if(callback){
+					
+					callback(data);
+					
+				}
+			}).fail(function(xhr, status, err){
+				if(error){
+					error();
+				}
+		}); */
+	}
+	return {
+	 getKaKao : getKaKao
+	};
+})();
+
     </script>
 </html>

@@ -10,31 +10,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>날씨데이터</title>
+    <title>날씨조이</title>
     <script src="https://kit.fontawesome.com/e8200549ff.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>    
-  	<link href="${pageContext.request.contextPath}/resources/css/home.css" rel="stylesheet">
   	<script src="${pageContext.request.contextPath}/resources/js/header.js"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	
- <!-- <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>  -->
-    <!-- <!-- Bootstrap Core CSS
-    <link href="/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    MetisMenu CSS
-    <link href="/resources/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
-    DataTables CSS
-    <link href="/resources/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
-
-    DataTables Responsive CSS
-    <link href="/resources/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
-
-    Custom CSS
-    <link href="/resources/dist/css/sb-admin-2.css" rel="stylesheet">
-
-    Custom Fonts
-    <link href="/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+  	<link href="${pageContext.request.contextPath}/resources/css/home.css" rel="stylesheet">
 </head>
 
 <body>
@@ -42,13 +23,17 @@
         <!-- Navigation -->
             <div class="navbar-header">
                 <a  href="/" style="margin:0">
-                	<img src="${pageContext.request.contextPath}/resources/image/tourlogo.png" alt="로고 이미지" width="100" height="100" style="margin-top:0">
+                	<img src="${pageContext.request.contextPath}/resources/image/tourlogo.png" alt="로고 이미지" width="100" height="100" style="margin-top:0; cursor: pointer;">
                 </a>
-                <a href="/member/signin">로그인</a>
+                <div class="navbar-atag">
+                <a href="/member/signin">로그인</a>                
                 <a href="/member/signup">회원가입</a>
+                </div>
+                
                 <a  id="menu" href="#" style="margin:0">
                 	<img src="${pageContext.request.contextPath}/resources/image/menu.png" alt="menu" width="100" height="100" style="margin-right:0">
                 </a>
+                
             </div>
             <!-- /.navbar-header -->    
 </div>

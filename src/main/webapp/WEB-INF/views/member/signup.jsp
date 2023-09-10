@@ -116,7 +116,7 @@
                     <button type="button" class="sign signUp-Btn" id="signUp-Btn">가입하기</button> 
                     <button type="reset" class="sign ">재등록</button>
            </form>
-           <p class="Logologin kakao"><img src="${pageContext.request.contextPath}/resources/image/kakao_login.png" alt="kakao" style="margin-right:0"></p>
+           
            
     </div>
 </body>
@@ -166,26 +166,7 @@ var formData = new FormData(form);
     	}) */
     	
     	
-    	Kakao.init('9f52d1abb56bf20aa9452032fd446672');
-		Kakao.isInitialized();
-		console.log(Kakao.isInitialized());
-    	$(".centerClass").on("click",'.kakao',function(e){
-    		Kakao.Auth.authorize()
-    		console.log("눌렸다");
-    		
-    		doKakaoLogin()
-    		
-    	}) 
-    	function doKakaoLogin() {
-    		       const url = 'https://kauth.kakao.com/oauth/authorize?client_id=' +
-    		      '9f52d1abb56bf20aa9452032fd446672' +
-    		          '&redirect_uri=http://127.0.0.1:8080/oauth/kakao' +
-    		          '&response_type=code&'+
-    		          'scope=account_email'  
-    		          
-    		          window.location.href = url;  
-    		}
-    
+    	
     	
     	//주소값을 합해서 히든 인풋 창에 넣어서 name속성을 타고 보내기
     $('.address').change(function(){

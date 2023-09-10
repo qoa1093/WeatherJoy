@@ -2,6 +2,9 @@ package weather.joy.mapper;
 
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import weather.joy.domain.Criteria;
 import weather.joy.domain.MemberVO;
 import weather.joy.domain.SocialVO;
@@ -31,5 +34,7 @@ public interface MemberMapper {
 		public MemberVO selectMemberId(String memId);
 
 		public void insertSocialUser(SocialVO kakao);
+
+		public SocialVO getSocial(@Param("soEmail")String soEmail, @Param("snsType")String snsType);
 		
 }

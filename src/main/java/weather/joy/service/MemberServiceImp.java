@@ -85,12 +85,12 @@ public class MemberServiceImp implements MemberService{
 	//카카오 로그인 토큰 가져와서 사용자 정보 확인하기
 	@Override
 	public SocialVO getSocialData(String code) {
+		
 		String token = getAccessToken(code);
 		log.info("토큰값 : "+token);
 		SocialVO kakao = getUserInfo(token);
 		log.info("kakao유저정보:"+kakao);
-		//맵퍼에 사용자 정보 등록하기(기존 계정이 있다면 리턴하는 구현 필요)
-		//mapper.insertSocialUser(kakao);
+		
 		return kakao;
 	}
 	
@@ -124,16 +124,26 @@ public class MemberServiceImp implements MemberService{
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
+			System.out.println("email-------------:"+email);
 			String id = element.getAsJsonObject().get("id").getAsString();
-				
-			MemberVO user = new MemberVO();
-			mapper.insertUserNum(user);			
-			userInfo.setMemNum(user.getMemNum());
-			userInfo.setSoEmail(email);
-			userInfo.setSnsType("K");
-			userInfo.setSoId(id);
-			userInfo.setSoToken(token);
-
+			SocialVO socialUser = mapper.getSocial(email, "K");
+			System.out.println(socialUser.getSoEmail());
+			//user_wj의 정보를 모두 불러오고 그중 이메일정보를 불러와서 해당 이메일이 존재하면 기존회원 리턴
+				//이부분 수정해야 할 것. false가 나오는 이유가?
+			  if(socialUser!=null&& email.equals(socialUser.getSoEmail())) { 
+				  userInfo = socialUser; 
+			  } //기존회원이 없는 상태라면 새로 가입하게끔 함 
+			  else { 
+		      MemberVO user = new MemberVO(); mapper.insertUserNum(user); 
+			  userInfo.setMemNum(user.getMemNum());
+			  userInfo.setSoEmail(email); 
+			  userInfo.setSnsType("K"); 
+			  userInfo.setSoId(id);
+			  userInfo.setSoToken(token);
+			  //소셜가입 완료
+				mapper.insertSocialUser(userInfo);
+			  }
+			 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

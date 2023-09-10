@@ -59,13 +59,7 @@
             color:#ffbd80;
         }
         span{ font-size: small; font-weight: bold;}
-        .centerCss{
-         	display: flex;            
-            justify-content: center;
-            align-items: center;
-            text-align:center;
-        	margin-right : 50px;
-        }
+        
      
         
         input[type="radio"] {
@@ -91,9 +85,7 @@
         #searchBtn{
         	float:none;
         }
-        .Logologin{
-         cursor: pointer;margin-top: 10px; margin-right:130px;
-        }
+       
         .signUp-Btn{
         	border: 1px solid white; float:left;
         	position: relative;  margin-left: 5px; margin-right: 5px;

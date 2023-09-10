@@ -17,7 +17,10 @@ public class MemberVO {
 	private String memAValid;
 	private Date memDate;//
 	
-	public String getId(long memNum) {
-		return this.memId;
-	}
+	
+	
+	
+	
+	  public String getId(long memNum) { return this.memId; }
+	 
 }
