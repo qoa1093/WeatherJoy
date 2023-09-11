@@ -24,7 +24,7 @@
                         <span class="dupleIdCheck">아이디 중복 체크</span>
                     </span>
                     <p></p>
-                    <input type="password" name="memPW" class="weatherSignUp" id="Pwd" placeholder="비밀번호를 입력하세요.">
+                    <input type="password" name="memPw" class="weatherSignUp" id="Pwd" placeholder="비밀번호를 입력하세요.">
                     <p></p>
 
                     <input type="password" class="weatherSignUp"id="Pwd2" placeholder="비밀번호를 재입력하세요.">

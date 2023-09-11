@@ -27,7 +27,8 @@ public class SignController {
 		log.info(code);
 		SocialVO kakaoLogin = service.getSocialData(code);
 		//new ResponseEntity<>(kakaoLogin, HttpStatus.OK);
-		rttr.addFlashAttribute("kakaoLogin", kakaoLogin);
+		String user = kakaoLogin.getSoEmail();
+		rttr.addFlashAttribute("user", user);
 		return "redirect:/";
 	}
 }

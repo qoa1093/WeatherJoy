@@ -240,3 +240,7 @@ a:focus,a:hover {
 .navbar-atag a{
 	margin-right:20px;
 }
+.helloMent{
+	position: absolute; right:350px; top:40px; 
+	
+}

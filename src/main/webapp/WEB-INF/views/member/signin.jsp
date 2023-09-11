@@ -93,7 +93,7 @@
                     <p></p>
                     <input type="password" name="memPw" class="weatherIdPwd"id="weatherPwd">
                 </div>
-                <label class="autoLabel"><input id="autoLogin" type="checkbox">
+                <label class="autoLabel"><input id="autoLogin" name= "remember-me" type="checkbox">
                     <i class="fa-regular fa-circle-check" style="color: #ffbd80;"></i>
                     <i class="fa-solid fa-circle-check" style="color: #fbcb46;"></i>
                     자동로그인
@@ -103,6 +103,7 @@
                     <p></p>
                     <button type="submit"  class="sign signInBtn" id="signInBtn">로그인</button> 
                     <button class="sign signUpBtn"><a href="/member/signup">회원가입</a></button>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
                     </form>
                 </div>
                     <p class="Logologin kakao"><img src="${pageContext.request.contextPath}/resources/image/kakao_login.png" alt="kakao" style="margin-right:0"></p>

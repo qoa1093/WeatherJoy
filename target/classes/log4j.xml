@@ -14,6 +14,9 @@
 	<logger name="weather.joy.controller">
 		<level value="info" />
 	</logger>
+	<logger name="weather.joy.service">
+		<level value="info" />
+	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">

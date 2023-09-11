@@ -2,6 +2,9 @@ package weather.joy.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,27 +80,34 @@ public class MemberController {
 	}
 
 	@PostMapping("/signup")
-	public String signupPost(MemberVO user/* ,RedirectAttributes rttr */) {
+	public String signupPost(MemberVO user) {
 		if(user==null) return "redirect:/member/signup";
 		log.info("유저:"+user);
-		//log.info("찍혀라~~~");
-		//service.register(user);
-		//rttr.addFlashAttribute("result", user.getMemId());
+		String memId = service.register(user);
 		
-		
+			
 		return "redirect:/"/* "home" */;
 		
 	}
 	@PostMapping("/signin")
-	public String signinPost(MemberVO user) {
+	public String signinPost(MemberVO user, RedirectAttributes rttr) {
 		log.info("유저:"+user);
-		if(user.getMemId()==""|user.getMemPw()=="") return "redirect:/member/signin";
-		
+		if(user.getMemId().equals("")||user.getMemPw().equals("")) return "redirect:/member/signin";
+		log.info("아이디가 넘어오나요?:"+user.getMemId());	
 		//service.(user);
-				
+		rttr.addFlashAttribute("user", user.getMemId());			
 		return "redirect:/";
 		
 	}
+	
+	@PostMapping("/signout")
+	public String signupOut(MemberVO user) {
+		log.info("로그아웃~~~~~");
+			
+		return "redirect:/"/* "home" */;
+		
+	}
+	
 	@ResponseBody
 	@PostMapping(value="/idCheck")
 	public String idCheck(String memId) {

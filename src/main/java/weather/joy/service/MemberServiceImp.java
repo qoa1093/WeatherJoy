@@ -50,7 +50,8 @@ public class MemberServiceImp implements MemberService{
 	@Override
 	public String register(MemberVO user) { 
 		log.info("register......"+user);
-		
+		mapper.insertUserNum(user);
+		log.info(user.getMemNum());
 		mapper.insertUser(user);
 		 
 		String i = user.getMemId(); 
@@ -87,15 +88,19 @@ public class MemberServiceImp implements MemberService{
 	public SocialVO getSocialData(String code) {
 		
 		String token = getAccessToken(code);
+		
 		log.info("토큰값 : "+token);
 		SocialVO kakao = getUserInfo(token);
 		log.info("kakao유저정보:"+kakao);
+		
 		
 		return kakao;
 	}
 	
 	public SocialVO getUserInfo(String token) {
 		SocialVO userInfo = new SocialVO();
+		log.info("유저의 액세스토큰"+token);
+		
 		String reqURL = "https://kapi.kakao.com/v2/user/me";
 		try {
 			URL url = new URL(reqURL);
@@ -106,7 +111,7 @@ public class MemberServiceImp implements MemberService{
 			conn.setRequestProperty("Authorization", "Bearer " + token);
 
 			int responseCode = conn.getResponseCode();
-			System.out.println("responseCode : " + responseCode);
+			log.info("responseCode : " + responseCode);
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
@@ -116,7 +121,7 @@ public class MemberServiceImp implements MemberService{
 			while ((line = br.readLine()) != null) {
 				result += line;
 			}
-			System.out.println("response body : " + result);
+			log.info("response body : " + result);
 
 			JsonParser parser = new JsonParser();
 			JsonElement element = parser.parse(result);
@@ -124,10 +129,10 @@ public class MemberServiceImp implements MemberService{
 			JsonObject kakao_account = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
 
 			String email = kakao_account.getAsJsonObject().get("email").getAsString();
-			System.out.println("email-------------:"+email);
+			log.info("email-------------:"+email);
 			String id = element.getAsJsonObject().get("id").getAsString();
 			SocialVO socialUser = mapper.getSocial(email, "K");
-			System.out.println(socialUser.getSoEmail());
+			//log.info(socialUser.getSoEmail());
 			//user_wj의 정보를 모두 불러오고 그중 이메일정보를 불러와서 해당 이메일이 존재하면 기존회원 리턴
 				//이부분 수정해야 할 것. false가 나오는 이유가?
 			  if(socialUser!=null&& email.equals(socialUser.getSoEmail())) { 
@@ -149,9 +154,10 @@ public class MemberServiceImp implements MemberService{
 		}
 		return userInfo;
 	}
+	
 	public String getAccessToken(String code) {
         String access_Token = "";
-        String refresh_Token = "";
+       String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
 
         try {
@@ -175,7 +181,7 @@ public class MemberServiceImp implements MemberService{
 
             //    결과 코드가 200이라면 성공
             int responseCode = conn.getResponseCode();
-            System.out.println("responseCode : " + responseCode);
+        	log.info("responseCode : " + responseCode);
 
             //    요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -185,7 +191,7 @@ public class MemberServiceImp implements MemberService{
             while ((line = br.readLine()) != null) {
                 result += line;
             }
-            System.out.println("response body : " + result);
+        	log.info("response body : " + result);
 
             //    Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
             JsonParser parser = new JsonParser();
@@ -194,8 +200,8 @@ public class MemberServiceImp implements MemberService{
             access_Token = element.getAsJsonObject().get("access_token").getAsString();
             refresh_Token = element.getAsJsonObject().get("refresh_token").getAsString();
 
-            System.out.println("access_token : " + access_Token);
-            System.out.println("refresh_token : " + refresh_Token);
+        	log.info("access_token : " + access_Token);
+        	log.info("refresh_token : " + refresh_Token);
 
             br.close();
             bw.close();
@@ -203,7 +209,7 @@ public class MemberServiceImp implements MemberService{
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        
         return access_Token;
         
     }

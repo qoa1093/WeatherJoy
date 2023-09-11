@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.extern.log4j.Log4j;
+import weather.joy.domain.MemberVO;
 
 @Log4j
 @Controller
@@ -20,8 +21,8 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
-		
+	public String home(MemberVO user) {
+		log.info(user);//null값만 들어옴
 		return "home";
 	}
 
