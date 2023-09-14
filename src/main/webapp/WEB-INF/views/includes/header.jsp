@@ -26,23 +26,22 @@
                 <a  href="/" style="margin:0">
                 	<img src="${pageContext.request.contextPath}/resources/image/tourlogo.png" alt="로고 이미지" width="100" height="100" style="margin-top:0; cursor: pointer;">
                 </a>
-                <c:if test="${user != null}">
-                	<p class="helloMent"> ${user}님 환영합니다.</p>
-                </c:if>
+                <sec:authorize access="isAuthenticated()" >
+                	<p class="helloMent"> <sec:authentication property="principal.username"/>님 환영합니다.</p>
+                	<div class="navbar-atag">
+                		<a href="/member/signiout">로그아웃</a>
+                		<a href="/member/reviewBoard">리뷰게시판</a>
+                	</div>
+                </sec:authorize>
                 
-                <c:if test="${user == null}">
+                <sec:authorize access="isAnonymous()" >
                  	<p class="helloMent"> 로그인하면 더욱 다양한 혜택이!</p>
-                </c:if>
-                <div class="navbar-atag">
-                <c:if test="${user == null}">
-                <a href="/member/signin">로그인</a>
-                <a href="/member/signup">회원가입</a>
-                </c:if>
-                <c:if test="${user != null}">
-                <a href="/member/signiout">로그아웃</a>
-                <a href="/member/reviewBoard">리뷰게시판</a>
-                </c:if>                
-                </div>
+                 	<div class="navbar-atag">                
+		                <a href="/member/signin">로그인</a>
+		                <a href="/member/signup">회원가입</a>
+		            </div>
+                </sec:authorize>
+                
                 
                 <a  id="menu" href="#" style="margin:0">
                 	<img src="${pageContext.request.contextPath}/resources/image/menu.png" alt="menu" width="100" height="100" style="margin-right:0">

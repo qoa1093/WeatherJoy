@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
@@ -50,6 +51,7 @@ public class MemberServiceImp implements MemberService{
 	@Override
 	public String register(MemberVO user) { 
 		log.info("register......"+user);
+		//String pw = user.getMemPw().
 		mapper.insertUserNum(user);
 		log.info(user.getMemNum());
 		mapper.insertUser(user);
@@ -213,4 +215,9 @@ public class MemberServiceImp implements MemberService{
         return access_Token;
         
     }
+	/*
+	 * @Override public MemberVO signIn(MemberVO user) { //if() MemberVO member =
+	 * mapper.read(user.getMemId()); if(member != null &&
+	 * member.getMemPw().equals(user.getMemPw())) { return member; } return null; }
+	 */
 }

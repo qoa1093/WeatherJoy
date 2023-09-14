@@ -16,4 +16,5 @@ public interface MemberService {
 	public List<MemberVO> getList(Criteria cri);
 	public MemberVO getMemId(String memId);
 	public SocialVO getSocialData(String code);
+	//public MemberVO signIn(MemberVO user);
 }

@@ -89,16 +89,17 @@ public class MemberController {
 		return "redirect:/"/* "home" */;
 		
 	}
-	@PostMapping("/signin")
-	public String signinPost(MemberVO user, RedirectAttributes rttr) {
-		log.info("유저:"+user);
-		if(user.getMemId().equals("")||user.getMemPw().equals("")) return "redirect:/member/signin";
-		log.info("아이디가 넘어오나요?:"+user.getMemId());	
-		//service.(user);
-		rttr.addFlashAttribute("user", user.getMemId());			
-		return "redirect:/";
-		
-	}
+	/*
+	 * @PostMapping("/signin") public String signinPost(MemberVO user,
+	 * RedirectAttributes rttr) { log.info("유저:"+user);
+	 * user.setMemId(user.getUsername());
+	 * if(user.getMemId().equals("")||user.getMemPw().equals("")) return
+	 * "redirect:/member/signin"; log.info("아이디가 넘어오나요?:"+user.getMemId());
+	 * //MemberVO member =service.signIn(user); rttr.addFlashAttribute("user",
+	 * user.getMemId()); return "redirect:/";
+	 * 
+	 * }
+	 */
 	
 	@PostMapping("/signout")
 	public String signupOut(MemberVO user) {

@@ -119,4 +119,26 @@ update member
   <select id="getSocial" resultType="weather.joy.domain.SocialVO">
   select * from social where soEmail = #{soEmail} and snsType=#{snsType}
   </select>
+  
+  <resultMap type="weather.joy.domain.MemberVO" id="memberMap">
+<id property="userid" column="memId"/>
+<result property="memId" column="memId"/>
+<result property="memPw" column="memPw"/>
+<result property="memName" column="memName"/>
+<result property="regDate" column="redDate"/>
+<result property="updatedate" column="updatedate"/>
+<collection property="authList" resultMap="authMap"></collection>
+</resultMap>
+
+ <resultMap type="weather.joy.domain.AuthVO" id="authMap">
+	<result property="userid" column="userid"/>
+	<result property="auth" column="auth"/>
+</resultMap>
+
+<select id="readMember" resultMap="memberMap">
+	select *
+		From 
+			member mem left outer join member_auth auth on mem.memId = auth.memId
+				where mem.memId = #{userid}
+</select> 
 </mapper>

@@ -13,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import lombok.extern.log4j.Log4j;
 import weather.joy.domain.MemberVO;
+import weather.joy.domain.SocialVO;
 
 @Log4j
 @Controller
@@ -21,8 +22,9 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(MemberVO user) {
-		log.info(user);//null값만 들어옴
+	public String home() {
+		//log.info(user);//null값만 들어옴
+		//log.info(social);
 		return "home";
 	}
 

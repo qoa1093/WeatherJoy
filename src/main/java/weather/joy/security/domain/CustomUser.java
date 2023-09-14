@@ -1,5 +1,6 @@
 package weather.joy.security.domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -22,11 +23,10 @@ public class CustomUser extends User{
 							Collection<? extends GrantedAuthority> authorities) {
 		super(username, password,authorities);
 		
+		
 	}
 	public CustomUser(MemberVO vo) {
-		super(vo.getMemId(),vo.getMemPw(),vo.getAuthList().stream().map(auth->
-								new SimpleGrantedAuthority(auth.getAuth())).collect(Collectors.toList()));
+		super(vo.getMemId(),vo.getMemPw(),new ArrayList<>());
 		this.member = vo;
 	}
-
 }

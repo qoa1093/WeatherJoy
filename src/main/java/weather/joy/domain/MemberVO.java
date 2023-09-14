@@ -1,7 +1,10 @@
 package weather.joy.domain;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
 
 import weather.joy.domain.AuthVO;
 
@@ -19,7 +22,8 @@ public class MemberVO {
 	private String memHobby;
 	private String memAValid;
 	private Date memDate;//
-	
+	private String username;
+	private String memValid;
 	
 	private List<AuthVO> authList;
 	

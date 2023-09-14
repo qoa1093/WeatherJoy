@@ -89,9 +89,10 @@
 	       <!--action=""  method="post"  -->
             <form  autocomplete="off" role="form">
                 <div class="">
-                    <input type="text" class="weatherIdPwd" id="weatherId" name="memId">
+                    <input type="text" class="weatherIdPwd" id="weatherId" name="username">
+                    <!-- <input type="hidden" name="memId"> -->
                     <p></p>
-                    <input type="password" name="memPw" class="weatherIdPwd"id="weatherPwd">
+                    <input type="password" name="password" class="weatherIdPwd"id="weatherPwd">
                 </div>
                 <label class="autoLabel"><input id="autoLogin" name= "remember-me" type="checkbox">
                     <i class="fa-regular fa-circle-check" style="color: #ffbd80;"></i>
@@ -102,7 +103,7 @@
                     <a href=""> 비밀번호찾기 </a> <a href=""> 아이디찾기 </a>
                     <p></p>
                     <button type="submit"  class="sign signInBtn" id="signInBtn">로그인</button> 
-                    <button class="sign signUpBtn"><a href="/member/signup">회원가입</a></button>
+                    <button class="sign signUpBtn" form="/member/signup">회원가입</a></button>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
                     </form>
                 </div>
@@ -115,9 +116,10 @@ $(document).ready(function(){
     let formObj = $("form");
     loginAlert.addEventListener('click', function() {
         //alert('로그인 되었습니다.');
-    	formObj.attr("action","/member/signin").attr("method","post").submit();
+    	formObj.attr("action","/login").attr("method","post").submit();
         
     })
+    
  		Kakao.init('9f52d1abb56bf20aa9452032fd446672');
 		Kakao.isInitialized();
 		console.log(Kakao.isInitialized());
@@ -125,11 +127,7 @@ $(document).ready(function(){
     		//Kakao.Auth.authorize()
     		//console.log("눌렸다");
     		
-    		doKakaoLogin()
-    		
-    		
-    		
-    		
+    		doKakaoLogin()    		
     	}) 
     	function doKakaoLogin() {
     		       const url = 'https://kauth.kakao.com/oauth/authorize?client_id=' +
@@ -191,4 +189,12 @@ var socialService = (function(){
 })();
 
     </script>
+ <!--    <script type="text/javascript">
+    $(document).ready(function(){
+    	$('[name=memId]').change(function(){
+    	let userid = $(this).val();
+	    $('[name=username]').val(userid);
+    	})
+    })
+    </script> -->
 </html>
