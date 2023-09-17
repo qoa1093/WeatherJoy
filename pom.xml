@@ -14,6 +14,14 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+	<!-- oauth2-client -->
+	<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client -->
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-oauth2-client</artifactId>
+    <version>5.2.7.RELEASE</version>
+</dependency>
+	
 	<!-- 버전 맞춰서 스프링 시큐리티 4개 넣어줄 것 -->
 <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 <dependency>
