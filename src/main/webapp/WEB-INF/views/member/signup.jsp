@@ -103,7 +103,7 @@
                     </p>
                     <span>반려동물 여부</span>
 					<p class="centerCss">                    
-                    <input type="radio" name="memAValid" value="Y">&nbsp;<span>네</span> &nbsp;&nbsp;&nbsp;<input type="radio" name="memAValid">&nbsp;<span>아니오</span>
+                    <input type="radio" name="memAValid" value="Y">&nbsp;<span>네</span> &nbsp;&nbsp;&nbsp;<input type="radio" name="memAValid" value="N">&nbsp;<span>아니오</span>
                     </p>
 					
                     <p></p>
@@ -115,6 +115,7 @@
                     <p></p>
                     <button type="button" class="sign signUp-Btn" id="signUp-Btn">가입하기</button> 
                     <button type="reset" class="sign ">재등록</button>
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
            </form>
            
            
@@ -215,10 +216,12 @@ var formData = new FormData(form);
        	if(!idRegex.test(memId))
        		return; */
        	var res = memberService.idCheck(contextPath, memId);
+       	console.log(res);
        	//console.log(res);
        	if(res)
        		alert('사용 가능한 아이디입니다.')
        	else{
+       		console.log(res);
        		alert('이미 가입된 아이디입니다.')
        		$(this).find('.fa-solid').hide();
        		$(this).find('.fa-regular').show();
@@ -228,15 +231,18 @@ var contextPath = '<%=request.getContextPath()%>';
 var memberService = (function(){
 	function idCheck(contextPath, memId){		
 		var flag = false;
+		console.log("멤버아이디 :"+ memId)
 		$.ajax({
 			async: false,
     		type : 'post',
     		url  : contextPath + '/member/idCheck',
-    		data : {memId : memId},
-    		success : function (res){
+    		data : {"memId" : memId},
+    		success : function(res){
     			if(res == 'OK'){
+    				console.log(res);
     				flag = true;
     			}else{
+    				console.log("실패"+res);
     				flag = false;
     			}
     		}
@@ -245,11 +251,14 @@ var memberService = (function(){
 	}
 	return {
 		name : 'memberService',
-		idCheck : idCheck, 
+		idCheck : idCheck 
 	}
 })();
     
 })
+$(document).ajaxSend(function(e, xhr, options) {
+xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+});
     </script>
     <script>
    /*  $(document).ready(function() {

@@ -2,6 +2,7 @@ package weather.joy.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +44,12 @@ public class HomeController {
 
 		log.info(reCityName + " " + selectedValue);
 		return "contentType"; // 결과 페이지로 리다이렉트
+	}
+	
+	@GetMapping("/accessError")
+	public void accessDenied(Authentication auth, Model model) {
+		log.info("access Denied:"+auth);
+		model.addAttribute("msg", "Access Denied");
 	}
 
 }

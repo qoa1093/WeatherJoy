@@ -3,8 +3,12 @@ package weather.joy.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -100,19 +104,23 @@ public class MemberController {
 	 * 
 	 * }
 	 */
-	
-	@PostMapping("/signout")
-	public String signupOut(MemberVO user) {
+	//a태그를 사용했기 때문에 post방식 대신 get으로 처리함
+	@GetMapping("/signout")
+	public String signupOut(HttpServletRequest request, HttpServletResponse response) {
 		log.info("로그아웃~~~~~");
-			
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    if (authentication != null) {
+	        new SecurityContextLogoutHandler().logout(request, response, authentication);
+	    }	
 		return "redirect:/"/* "home" */;
 		
 	}
 	
 	@ResponseBody
-	@PostMapping(value="/idCheck")
-	public String idCheck(String memId) {
-		return service.getMemId(memId) != null ? "FAIL" : "OK";
+	@PostMapping("/idCheck")
+	public String idCheck(String memId)throws Exception{
+		//log.info("아이디 : "+memId);
+		return service.getMemId(memId) == null ? "OK":"FAIL";
 	}
 	
 }

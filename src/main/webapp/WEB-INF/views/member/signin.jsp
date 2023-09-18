@@ -103,7 +103,7 @@
                     <a href=""> 비밀번호찾기 </a> <a href=""> 아이디찾기 </a>
                     <p></p>
                     <button type="submit"  class="sign signInBtn" id="signInBtn">로그인</button> 
-                    <button class="sign signUpBtn" form="/member/signup">회원가입</a></button>
+                    <button type="button" class="sign signUpBtn">회원가입</button>                  
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
                     </form>
                 </div>
@@ -189,12 +189,11 @@ var socialService = (function(){
 })();
 
     </script>
- <!--    <script type="text/javascript">
+ <script type="text/javascript">
     $(document).ready(function(){
-    	$('[name=memId]').change(function(){
-    	let userid = $(this).val();
-	    $('[name=username]').val(userid);
+    	$('.signUpBtn').on("click",function(){
+    	window.location.href = <%-- '<%=request.getContextPath()%>'+ --%>"/member/signup"; 
     	})
     })
-    </script> -->
+    </script> 
 </html>

@@ -19,9 +19,13 @@ public interface MemberMapper {
 		
 		public void insertUser(MemberVO user);
 		
+		public void insertAuth(String memId);
+		
 		//public void insertSelectKey(UserVO user);
 		
 		public MemberVO read(String userid);
+		
+		public MemberVO readMember(String userid);
 		
 		public int delete(long memNum);
 		

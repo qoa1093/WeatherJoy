@@ -29,8 +29,9 @@
                 <sec:authorize access="isAuthenticated()" >
                 	<p class="helloMent"> <sec:authentication property="principal.username"/>님 환영합니다.</p>
                 	<div class="navbar-atag">
-                		<a href="/member/signiout">로그아웃</a>
-                		<a href="/member/reviewBoard">리뷰게시판</a>
+                		<a href="/member/signout">로그아웃</a>
+                		
+                		<a href="/board/reviewlist">리뷰게시판</a>
                 	</div>
                 </sec:authorize>
                 
