@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="weather.joy.mapper.BoardAttachMapper">
+<insert id="insert">
+	insert into filewj(fileName, filePath, fileOriName,fileValid ,fileThValid, bdNum)
+	values(#{fileName}, #{filePath}, #{fileOriName},#{fileValid}, #{fileThValid}, #{bdNum})
+</insert>
+
+<delete id="delete">
+	delete from filewj where fileName = #{fileName}
+</delete>
+
+<select id="findByBno" resultType="weather.joy.domain.BoardAttachVO">
+	select * from filewj where bdNum=#{bdNum}
+</select>
+
+<delete id="deleteAll">
+delete filewj where bdNum=#{bdNum}
+
+</delete>
+
+<select id="getOldFiles" resultType="weather.joy.domain.BoardAttachVO">
+select * from filewj where filePath = to_char(sysdate -1, 'yyyy\mm\dd')
+</select>
+</mapper>

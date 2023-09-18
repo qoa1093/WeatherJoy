@@ -11,7 +11,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.JsonElement;
@@ -19,6 +21,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import weather.joy.domain.Criteria;
 import weather.joy.domain.MemberVO;
@@ -28,10 +31,14 @@ import weather.joy.mapper.MemberMapper;
 
 
 @Service
-@AllArgsConstructor
 @Log4j
 public class MemberServiceImp implements MemberService{
+	
+	@Setter(onMethod_ = @Autowired)
 	private MemberMapper mapper;
+	
+	@Setter(onMethod_ = @Autowired)
+	private PasswordEncoder pwencoder;
 	
 	@Override
 	public List<MemberVO> getUserList(){
@@ -54,7 +61,9 @@ public class MemberServiceImp implements MemberService{
 		//String pw = user.getMemPw().
 		mapper.insertUserNum(user);
 		log.info(user.getMemNum());
+		user.setMemPw(pwencoder.encode(user.getMemPw()));
 		mapper.insertUser(user);
+		mapper.insertAuth(user.getMemId());
 		 
 		String i = user.getMemId(); 
 		return i;
@@ -81,9 +90,18 @@ public class MemberServiceImp implements MemberService{
 	}
 	@Override
 	public MemberVO getMemId(String memId) {
+		//log.info("서비스 : "+memId);
 		if(memId == null)
 			return null;
-		return mapper.selectMemberId(memId);
+		return mapper.read(memId);
+	}
+	
+	@Override
+	public MemberVO getmember(long memNum) {
+		//log.info("서비스 : "+memId);
+		if(memNum <0)
+			return null;
+		return mapper.selectMember(memNum);
 	}
 	//카카오 로그인 토큰 가져와서 사용자 정보 확인하기
 	@Override

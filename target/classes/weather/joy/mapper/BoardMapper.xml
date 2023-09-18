@@ -12,27 +12,19 @@
  	<foreach collection="typeArr" item="type" separator="or">
  		<choose>
  		<when test="type == 'T'.toString()">
- 		  	title like '%'||#{keyword}||'%'
+ 		  	bdTitle like '%'||#{keyword}||'%'
  		</when>
  		<when test="type == 'C'.toString()">
- 		  	content like '%'||#{keyword}||'%'
+ 		  	bdContent like '%'||#{keyword}||'%'
  		</when>
- 		<when test="type == 'W'.toString()">
- 		  	writer like '%'||#{keyword}||'%'
+ 		<when test="type == 'R'.toString()">
+ 		  	bdRegion like '%'||#{keyword}||'%'
  		</when>
  		</choose>
  	</foreach>
  	</trim>	
  	</sql>
 
-<!-- SELECT * FROM tbl_board where bno > 0 
-<select id="getList" resultType="weather.joy.domain.BoardVO">
-
-SELECT * FROM board order by bno desc
-
-</select> -->
-
-<!-- public int getTotalCount(Criteria cri); -->
 <select id="getTotalCount" resultType="int">
 	select count(*) from board where 
 	
@@ -41,8 +33,7 @@ SELECT * FROM board order by bno desc
 	
 	bdNum>0
 </select>
-
-<!-- SELECT * FROM tbl_board where bno > 0 -->
+<!-- 리스트 뽑아올때 사용 -->
 <select id="getListWithPaging" resultType="weather.joy.domain.BoardVO">
 <![CDATA[
 SELECT  
@@ -80,7 +71,7 @@ from
  		  	bdContent like '%'||#{val}||'%'
  		</if>
  		<if test="key == 'W'.toString()">
- 		  	memNum like '%'||#{val}||'%'
+ 		  	bdWriter like '%'||#{val}||'%'
  		</if>
  	</foreach>
  	</trim>
@@ -91,7 +82,7 @@ from
 </select>
 <insert id="insert">
 insert into board (bdNum, bdTitle, bdContent, memNum, bdRegion)
-values (seq_board.nextval,  #{bdTitle}, #{bdContent}, #{memNum}, #{bdRegion}, #{bdDate}, #{bdRegdate})
+values (seq_board.nextval,  #{bdTitle}, #{bdContent}, #{memNum}, #{bdRegion})
 </insert>
 
 <insert id="insertSelectKey">
@@ -120,16 +111,45 @@ set
 	bdRegdate =sysdate
 		where bdNum = #{bdNum}
 </update>
-<select id="readWriter" resultType="weather.joy.domain.BoardVO">
-	<!--  
+<!-- <select id="readWriter" resultType="weather.joy.domain.BoardVO">
+	 
 	select * from board where memNum = #{memNum}
-	-->
+	
 	SELECT (SELECT memId FROM member u WHERE u.memNum = b.memNum) AS userName
 		FROM board b
 			WHERE b.memNum = #{memNum};
-</select>
+</select> -->
 
 <delete id="deleteWriter">
 	delete from board where memNum = #{memNum}
 </delete>
+
+<update id="updateReplyCnt">
+	update board set replyCnt = replyCnt + #{amount} where bdNum = #{bdNum}
+</update>
+
+<select id="getReviewListWithPaging" resultType="weather.joy.domain.BoardVO">
+<![CDATA[
+SELECT  
+	bdNum, bdTitle, bdContent, memNum, bdRegion, bdDate, bdRegdate, opStar
+from
+(
+	SELECT 
+		/*+ index_desc(board pk_board)*/ 
+		rownum rn, bdNum, bdTitle, bdContent, memNum, bdRegion, bdDate, bdRegdate,opStar
+	 		FROM 
+	 			board ,optionwj
+	 				where 
+	 				
+	 				]]>
+	 <include refid="criteria">
+	</include>
+			
+	<![CDATA[rownum <= #{pageNum} * #{amount})
+	 	where rn > (#{pageNum}-1) * #{amount}
+	]]>
+	 	
+
+</select>
+
 </mapper>

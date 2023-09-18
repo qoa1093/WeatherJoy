@@ -41,4 +41,6 @@ public interface MemberMapper {
 
 		public SocialVO getSocial(@Param("soEmail")String soEmail, @Param("snsType")String snsType);
 		
+		public MemberVO selectMember(long memNum);
+		
 }

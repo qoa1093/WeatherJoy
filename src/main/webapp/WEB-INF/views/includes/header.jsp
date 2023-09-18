@@ -40,6 +40,7 @@
                  	<div class="navbar-atag">                
 		                <a href="/member/signin">로그인</a>
 		                <a href="/member/signup">회원가입</a>
+		                
 		            </div>
                 </sec:authorize>
                 

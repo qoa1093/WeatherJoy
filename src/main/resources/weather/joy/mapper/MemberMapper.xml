@@ -96,11 +96,11 @@ values (#{memId})
 
 
 <select id="read" resultType="weather.joy.domain.MemberVO">
-	select * from member where memId = #{memId}
+	select * from member where memId = #{memId} and memValid = 'Y'
 </select>
 
 <delete id="delete">
-	delete from member where memNum = #{memNum}
+	delete from member where memNum = #{memNum} 
 </delete>
 
 <update id="update">
@@ -118,8 +118,8 @@ update member
 			where memId=#{memId}
 
 </update>
-<select id="selectMemberId" resultType="weather.joy.domain.MemberVO">
-  	select * from member where memId = #{memId} and memValid = 'Y'
+<select id="selectMember" resultType="weather.joy.domain.MemberVO">
+  	select * from member where memNum = #{memNum} and memValid = 'Y'
   </select>
   <select id="getSocial" resultType="weather.joy.domain.SocialVO">
   select * from social where soEmail = #{soEmail} and snsType=#{snsType}

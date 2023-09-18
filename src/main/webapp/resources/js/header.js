@@ -1,7 +1,7 @@
 $(document).ready(function(){      
 var menubar = "<nav class='menuBarOpen'><ul>"
 			 +"<li class='menubarblock'><a href='#'>마이페이지</a></li>"
-			 +"<li class='menubarblock'>한줄리뷰게시판</li>"
+			 +"<li class='menubarblock'><a href='/board/reviewlist'>한줄리뷰게시판</a></li>"
 			 +"<li class='menubarblock'>이미지게시판</li></ul></nav>";
  $('#menu').append(menubar);
  $(".menuBarOpen").hide();
