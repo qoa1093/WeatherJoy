@@ -67,12 +67,7 @@ public class BoardServiceImp implements BoardService{
 	
 	
 	
-	@Override
-	public BoardVO get(long bdNum) { 
-		log.info("get......"+bdNum);
-		
-		return mapper.read(bdNum);
-	}
+	
 	
 	@Transactional
 	@Override
@@ -122,6 +117,16 @@ public class BoardServiceImp implements BoardService{
 		log.info("get total count");
 		
 		return mapper.getTotalCount(cri);
+	}
+	
+	@Override
+	public BoardVO get(long bdNum) { 
+		log.info("get......"+bdNum);
+		BoardVO vo = mapper.read(bdNum);
+		String name = membermapper.selectMember(vo.getMemNum()).getMemId();
+		log.info("이름"+name);
+		vo.setWriter(name);
+		return vo;
 	}
 
 }

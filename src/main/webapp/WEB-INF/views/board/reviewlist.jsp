@@ -82,7 +82,7 @@
                              	<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : ''}" />> 제목 </option>
                              	<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected' : ''}" />> 내용 </option>
                              	<option value="R" <c:out value="${pageMaker.cri.type eq 'R' ? 'selected' : ''}" />> 지역 </option>
-                             	<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC' ? 'selected' : ''}" />> 제목+내용 </option>
+                             	<option value="TR" <c:out value="${pageMaker.cri.type eq 'TR' ? 'selected' : ''}" />> 제목+지역 </option>
                              	<option value="TW" <c:out value="${pageMaker.cri.type eq 'TW' ? 'selected' : ''}" />> 제목+작성자 </option>                                 	
                              	<option value="TWC" <c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected' : ''}" />>제목+내용+작성자 </option>
                              	</select>
@@ -193,7 +193,7 @@ $('.move').on('click', function(e){
 	var targetBno = $(this).attr("href");
 	console.log(targetBno);
 	actionForm.append("<input type='hidden' name='bno' value='"+ targetBno+"'> ");
-	actionForm.attr("action", "/board/get");
+	actionForm.attr("action", "/board/reviewget");
 	actionForm.submit();
 	
 

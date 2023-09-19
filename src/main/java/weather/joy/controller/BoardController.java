@@ -50,6 +50,11 @@ public class BoardController {
 		log.info("total : "+ total);
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
+	@GetMapping({"/reviewget","/modify"})
+	public void get(@RequestParam("bno") long bno, @ModelAttribute("cri")Criteria cri, Model model) {
+		log.info("/get or modify");
+		model.addAttribute("board", service.get(bno));
+	}
 	/*
 	//어노테이션 라이브러리내에 존재
 	@PreAuthorize("isAuthenticated()")
@@ -99,11 +104,7 @@ public class BoardController {
 		rttr.addAttribute("keyword", cri.getKeyword());
 		return "redirect:/board/reviewlist"+cri.getListLink();
 	}
-	@GetMapping({"/get","/modify"})
-	public void get(@RequestParam("bno") long bno, @ModelAttribute("cri")Criteria cri, Model model) {
-		log.info("/get or modify");
-		model.addAttribute("board", service.get(bno));
-	}
+	
 	@GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<BoardAttachVO>> getAtttachList(Long bno){
