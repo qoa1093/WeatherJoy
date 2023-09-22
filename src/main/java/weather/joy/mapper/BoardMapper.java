@@ -16,14 +16,16 @@ public interface BoardMapper {
 	public List<BoardVO> getReviewListWithPaging(Criteria cri);
 	public int getTotalCount(Criteria cri);
 	public BoardVO read(long bdNum);
+	public BoardVO getRead(long bdNum);
+	public void updateReplyCnt(@Param("bdNum")long bdNum, @Param("amount")int amount);
+	public void insertSelectKey(BoardVO board);
+	public List<BoardVO> getList();
 	
 	//@Select("select * from tbl_board where bno>0")
-	/*public List<BoardVO> getList();
 	
 	
 	public void insert(BoardVO board);
 	
-	public void insertSelectKey(BoardVO board);
 	
 	
 	public int delete(long bdNum);
@@ -36,6 +38,6 @@ public interface BoardMapper {
 	
 	
 	public List<BoardVO> searchTest(Map<String, Map<String, String>> map);
-	
-	public void updateReplyCnt(@Param("bdNum")long bdNum, @Param("amount")int amount);*/
+	/*
+	*/
 }

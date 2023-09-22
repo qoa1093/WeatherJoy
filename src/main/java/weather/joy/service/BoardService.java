@@ -12,11 +12,13 @@ public interface BoardService {
 	public List<BoardVO> getList(Criteria cri);
 	public int getTotal(Criteria cri);
 	public BoardVO get(long bdNum);
-	/*public long register(BoardVO board);
+	public long register(BoardVO board);
+	public List<BoardAttachVO> getAttachList(long bdNum);
 	public int remove(long bno);
 	public boolean modify(BoardVO board);
-	//public List<BoardVO> getList();
+	public List<BoardVO> getList();
 	public int deleteWriter(String writer);
 	
-	public List<BoardAttachVO> getAttachList(Long bdNum);*/
+	/*
+	*/
 }

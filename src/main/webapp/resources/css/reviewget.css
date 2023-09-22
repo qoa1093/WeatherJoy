@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+
+input{
+	text-decoration: none;
+	border: none;outline:none; text-align: center;
+}
+textarea {
+	border:none; outline:none; resize:none; text-align: center; justify-content: center;
+	align-items: center; padding-top:20px;
+}
+.star{
+ color:#f5de0a; 	
+}
+select{
+	border:none; outline:none;
+}
+.backCol{
+	background-color: #f4eadb; width: 500px; opacity: 0.6;
+}
+.panel-line{
+
+  text-align: center;
+ 
+}
+
+.writer{
+	text-align: center;
+}

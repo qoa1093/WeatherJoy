@@ -23,10 +23,10 @@ function add(reply, callback,error){
  })
 }
 function getList(param, callback, error){
-var bno = param.bno;
+var bdNum = param.bdNum;
 var page = param.page || 1;
 
-$.getJSON("/replies/pages/" + bno+"/"+page + ".json",
+$.getJSON("/replies/pages/" + bdNum+"/"+page + ".json",
 	function(data){
 		if(callback){
 			callback(data);

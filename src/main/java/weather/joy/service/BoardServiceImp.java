@@ -32,11 +32,11 @@ public class BoardServiceImp implements BoardService{
 	
 	@Setter(onMethod_ = {@Autowired})
 	private MemberMapper membermapper;
-	/*
 	@Transactional
 	@Override
 	public long register(BoardVO board) { 
 		log.info("register......");
+		
 		
 		mapper.insertSelectKey(board);
 		if(board.getAttachList() == null || board.getAttachList().size() <=0) {
@@ -48,18 +48,13 @@ public class BoardServiceImp implements BoardService{
 			attach.setBdNum(board.getBdNum());
 			attachMapper.insert(attach);
 		});
-		return 1;
-		/*
-		 * long num = board.getBno();
-		 * 
-		 * return num;
+		
+		return 1;		
 		 
 	}
+
 	
-	public List<BoardAttachVO> getAttachList(Long bdNum){
-		return attachMapper.findByBno(bdNum);
-	}
-	/*@Override
+	@Override
 	public List<BoardVO> getList(){
 		log.info("getList.....");
 		return mapper.getList();
@@ -97,7 +92,13 @@ public class BoardServiceImp implements BoardService{
 		int i = mapper.deleteWriter(memNum);
 		log.info("delete many:---------" + i);
 		return i;
-	}*/
+	}
+	@Override
+	public List<BoardAttachVO> getAttachList(long bdNum){
+		return attachMapper.findByBno(bdNum);
+	}
+	/*
+	*/
 	
 	@Override
 	public List<BoardVO> getList(Criteria cri){
@@ -123,10 +124,12 @@ public class BoardServiceImp implements BoardService{
 	public BoardVO get(long bdNum) { 
 		log.info("get......"+bdNum);
 		BoardVO vo = mapper.read(bdNum);
+		vo = mapper.getRead(bdNum);
+		log.info(vo);
 		String name = membermapper.selectMember(vo.getMemNum()).getMemId();
 		log.info("이름"+name);
 		vo.setWriter(name);
 		return vo;
 	}
-
+	
 }

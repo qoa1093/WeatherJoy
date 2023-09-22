@@ -85,7 +85,7 @@ insert into board (bdNum, bdTitle, bdContent, memNum, bdRegion)
 values (seq_board.nextval,  #{bdTitle}, #{bdContent}, #{memNum}, #{bdRegion})
 </insert>
 
-<insert id="insertSelectKey">
+<insert id="insertSelectKey" >
 	<selectKey keyProperty="bdNum" order="BEFORE" resultType="long">
 	select seq_board.nextval from dual
 	</selectKey>
@@ -94,9 +94,11 @@ values (#{bdNum}, #{bdTitle}, #{bdContent}, #{memNum}, #{bdRegion})
 </insert>
 
 <select id="read" resultType="weather.joy.domain.BoardVO">
-	select * from board where bdNum = #{bdNum}
+	select * from board where bdNum = #{bdNum} 
 </select>
-
+<select id="getRead" resultType="weather.joy.domain.BoardVO">
+select b.bdNum, b.memNum, b.opBdNum, b.bdTitle, b.bdContent,b.bdView,b.bdRegion,b.bdDate,b.bdRegdate, o.opStar from board b, optionwj o where b.bdNum = #{bdNum} and o.opBdNum = b.opBdNum  
+</select> 
 <delete id="delete">
 	delete from board where bdNum = #{bdNum}
 </delete>
@@ -151,5 +153,4 @@ from
 	 	
 
 </select>
-
 </mapper>

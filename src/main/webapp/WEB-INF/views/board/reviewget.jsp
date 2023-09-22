@@ -3,47 +3,63 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri ="http://www.springframework.org/security/tags" prefix = "sec"%>    
-<%@include file="../includes/header.jsp" %>
-<link href="/resources/css/register.css" rel= "stylesheet">
+<%@include file="../includes/header.jsp"%>
+<link href="/resources/css/reviewget.css" rel= "stylesheet">
 
 <div id="page-wrapper">
 <div class="row">
    <div class="col-lg-12">
-      <h1 class="page-header">별점 리뷰 상세 페이지</h1>
-   </div>
-                <!-- /.col-lg-12 -->
+      <h1>리뷰 게시판</h1>
+   </div>                
 </div>
    <div class="row">
 	<div class="col-lg-12">
-	<div class="panel panel-default">
+	<div class="panel panel-default panel-line">
 		<div class="panel-heading">
   			상세 리뷰
-  		</div>
-                        <!-- /.panel-heading -->
+  		</div>                
         <div class="panel-body">
-			<div class="form-group">
-		          <label>boardNumber</label>
-		          <input class='form-control' name='bno' readonly="readonly" value='<c:out value="${board.bdNum}"/>'>
+			<div>
+		          <label>글 번호</label>
+		          <br>
+		          <input  name='bno' readonly="readonly" value='<c:out value="${board.bdNum}"/>'>
 		    </div>
-			<div class="form-group">
-		          <label>Title</label>
-		          <input class="form-control" name="title" value='<c:out value="${board.bdTitle}"/>' readonly="readonly">
+		    <hr>
+		    <div>
+		          
+		          <c:forEach begin="1" end="${board.opStar}" varStatus="loop">
+		          							<span class="star">
+											 <c:out value="★"/>
+										  	</span>
+										  </c:forEach>
+										  <c:forEach begin="${board.opStar}" end="4" varStatus="loop">
+								          <span class="star">
+											 <c:out value="☆"/>
+								          </span>
+										  </c:forEach>
 		    </div>
-		
-			<div class="form-group">
-		          <label>writer</label>
-		        <input class="form-control" name="writer" value='<c:out value="${board.writer}"/>' readonly="readonly">
+		    <br>
+			<div>
+		          <label>한줄 리뷰</label><br>
+		          <input  name="title" class="backCol" value='<c:out value="${board.bdTitle}"/>' readonly="readonly">
+		    </div>
+		<hr>
+			<div>
+		          <label>작성자</label>
+		          <br>
+		        <input name="writer" value='<c:out value="${board.writer}"/>' readonly="readonly">
 		   </div>
-		   <div class="form-group">
-		      <label>content</label>
-		      <textarea class="form-control" rows="5" cols="50" name="content"  readonly="readonly"><c:out value="${board.bdContent}"/></textarea>
+		   <br>
+		   <div>
+		      <label>상세리뷰</label><br>
+		      <textarea class="backCol" rows="5" cols="50" name="content"  readonly="readonly"><c:out value="${board.bdContent}"/></textarea>
 		   </div>
 		   
 		   <button data-oper="modify" class="btn btn-default"> Modify btn</button>
 		   <button data-oper="list" class="btn btn-default">List</button>
 		   
 		   <form id='operForm' action="/board/modify" method="get">
-			<input type='hidden' name='bdNum' value="<c:out value="${board.bdNum}"/>">
+			<input type='hidden' name='bno' value="<c:out value="${board.bdNum}"/>">
 			<input type='hidden' name='pageNum' value="<c:out value="${cri.pageNum}"/>">
 			<input type='hidden' name='amount' value="<c:out value="${cri.amount}"/>">
 			<input type='hidden' name='keyword' value="<c:out value="${cri.keyword}"/>">
@@ -53,11 +69,11 @@
 	</div>		
 	
  
-		<div class='bigPictureWrapper'>
+		<!--<div class='bigPictureWrapper'>
 			<div class='bigPicture'>
 			</div>
 		</div>
-		<div class="row">
+		 <div class="row">
 			<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">Files</div>
@@ -68,7 +84,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<i class= "fa fa-comments fa-fw"></i> reply
@@ -138,12 +154,12 @@
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 <script>
 	$(document).ready(function(){
-		var bnoValue='<c:out value="${board.bdNum}"/>';
+		var bdNumValue='<c:out value="${board.bdNum}"/>';
 		var replyUL = $('.chat');
 		showList(1);
 		//댓글 리스트를 보여주기
 		function showList(page){
-			replyService.getList({bno:bnoValue,page:page||1}, function(replyCnt,list){
+			replyService.getList({bdNum:bdNumValue,page:page||1}, function(replyCnt,list){
 				if(page == -1){
 					pageNum = Math.ceil(replyCnt/10.0);
 					showList(pageNum);
@@ -207,7 +223,7 @@
 			showList(pageNum);
 		})
 		
-		var modal = $('.modal');
+		var modal = $('#myModal');
 		var modalInputReply = modal.find("input[name='reply']");
 		var modalInputReplyer = modal.find("input[name='replyer']");
 		var modalInputReplyDate = modal.find("input[name='replydate']");
@@ -242,16 +258,15 @@
 			}
 			modalInputReplyDate.closest("div").hide();
 			modal.find("button[id != 'modalCloseBtn']").hide();
-			
 			modalRegisterBtn.show();
-			$(".modal").modal("show");
+			$("#myModal").modal("show");
 		})
 		//작성버튼 클릭시 작성되기
 		$('#modalRegisterBtn').on("click",function(e){
 			var reply={
 					reply : modalInputReply.val(),
 					replyer : modalInputReplyer.val(),
-					bno : bnoValue
+					bdNum : bdNumValue
 					
 			};
 			replyService.add(reply, function(result){
@@ -329,7 +344,7 @@
 		console.log(replyService);
 		(function(){
 			
-		var bno='<c:out value="${board.bno}"/>';
+		var bno='<c:out value="${board.bdNum}"/>';
 		
 		$.getJSON("/board/getAttachList",{bno:bno},function(arr){
 			console.log(arr);

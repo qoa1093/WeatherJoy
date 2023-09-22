@@ -10,5 +10,5 @@ public class BoardAttachVO {
 	private String fileValid;
 	private String fileThValid;
 	
-	private Long bdNum;
+	private long bdNum;
 }

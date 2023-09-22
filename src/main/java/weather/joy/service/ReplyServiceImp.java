@@ -24,23 +24,17 @@ import weather.joy.mapper.ReplyMapper;
 //@AllArgsConstructor
 @Log4j
 public class ReplyServiceImp implements ReplyService{
-	/*@Setter(onMethod_ = {@Autowired})
+	@Setter(onMethod_ = {@Autowired})
 	private ReplyMapper mapper;
 	
 	@Setter(onMethod_ = {@Autowired})
 	private BoardMapper boardMapper;
 	
-	@Transactional
-	@Override
-	public int register(ReplyVO vo) { 
-		log.info("register......"+vo);
-		boardMapper.updateReplyCnt(vo.getBno(), 1);
-		return mapper.insert(vo);
-		}
+	
 	
 	@Override
 	public List<ReplyVO> getList(Criteria cri, long bno){
-		log.info("getList.....");
+		log.info("getList....." + bno);
 		return mapper.getListWithPaging(cri, bno);
 	}
 	@Override
@@ -48,6 +42,13 @@ public class ReplyServiceImp implements ReplyService{
 		return new ReplyPageDTO(
 				mapper.getCountByBno(bno),
 				mapper.getListWithPaging(cri, bno));
+	}
+	/*
+	@Transactional	  
+	@Override public int register(ReplyVO vo) { 
+		log.info("register......"+vo);
+		boardMapper.updateReplyCnt(vo.getBno(), 1); 
+		return mapper.insert(vo); 
 	}
 	@Override
 	public ReplyVO get(long rno) { 
@@ -71,6 +72,6 @@ public class ReplyServiceImp implements ReplyService{
 		boardMapper.updateReplyCnt(vo.getBno(), -1);
 		
 		return mapper.delete(rno);
-	}*/
-
+	}
+*/
 }

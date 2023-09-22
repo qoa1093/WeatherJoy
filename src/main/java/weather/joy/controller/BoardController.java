@@ -55,7 +55,6 @@ public class BoardController {
 		log.info("/get or modify");
 		model.addAttribute("board", service.get(bno));
 	}
-	/*
 	//어노테이션 라이브러리내에 존재
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/register")
@@ -66,16 +65,23 @@ public class BoardController {
 	@PostMapping("/register")
 	public String register(BoardVO board, RedirectAttributes rttr) {
 		log.info("register : " + board);
-		
+			
 		if(board.getAttachList() !=null) { board.getAttachList().forEach(attach->log.info(attach));}
-		
+			
 		service.register(board);
-		
+			
 		rttr.addFlashAttribute("result", board.getBdNum());
-		
+			
 		return "redirect:/board/reviewlist";
-		
+			
 	}
+	@GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAtttachList(long bno){
+		return new ResponseEntity<>(service.getAttachList(bno),HttpStatus.OK);
+	}
+	
+	
 	@PreAuthorize("principal.username == #board.writer")
 	@PostMapping("/modify")
 	public String modify(BoardVO board, @ModelAttribute("cri") Criteria cri ,RedirectAttributes rttr) {
@@ -105,11 +111,7 @@ public class BoardController {
 		return "redirect:/board/reviewlist"+cri.getListLink();
 	}
 	
-	@GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public ResponseEntity<List<BoardAttachVO>> getAtttachList(Long bno){
-		return new ResponseEntity<>(service.getAttachList(bno),HttpStatus.OK);
-	}
+	
 	
 	
 	private void deleteFiles(List<BoardAttachVO> attachList) {
@@ -132,5 +134,7 @@ public class BoardController {
 				
 			}//end catch
 		});//end foreach
-	}*/
+	}
 }
+/*
+ */
