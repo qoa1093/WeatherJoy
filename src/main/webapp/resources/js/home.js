@@ -316,13 +316,13 @@ function updateCardVisibility() {
         let setNum = 1;
         let setFullNum = 1;
         function getCard(setNum, totalCityName, TCI_GRADE,doName,cityName){
-            if(cityName.includes('구')) {
+            /*if(cityName.includes('구')) {
                     cityName = cityName.replace('구', '');
                     //cityName = cityName.substring(0,2);
                     cityName='';                    
-            }else{
+            }else{*/
             cityName = '+'+cityName;
-            }        
+            //}        
             cardText = cardText + //cardno1 : 카드 고유 번호 , fullset1 : 3개 마다 셋트바뀜
                 '<div class="recommendCard transed cardNo'+setNum+' fullset'+setFullNum+'"'+'id ="'+totalCityName+'">'+
                     '<i class="fa-solid fa-temperature-low">'+'</i>'+

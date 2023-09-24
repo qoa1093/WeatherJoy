@@ -182,7 +182,7 @@ select{
     display: none;
 }
 #fixText{
-     height: 40px; position: absolute;
+     height: 40px; position: absolute; cursor: pointer;
 }
 #TNum{
     position: absolute; height:50px; size:5; bottom:80px;
@@ -243,4 +243,7 @@ a:focus,a:hover {
 .helloMent{
 	position: absolute; right:350px; top:40px; 
 	
+}
+.reviewClick{
+	position: absolute; bottom:20px;
 }
