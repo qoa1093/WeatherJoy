@@ -37,7 +37,11 @@ public class BoardServiceImp implements BoardService{
 	public long register(BoardVO board) { 
 		log.info("register......");
 		
-		
+		long num = membermapper.read(board.getWriter()).getMemNum();
+		board.setMemNum(num); 
+		mapper.insertOpstar(board);
+		long num2 = board.getOpBdNum();
+		log.info("optin:"+board);
 		mapper.insertSelectKey(board);
 		if(board.getAttachList() == null || board.getAttachList().size() <=0) {
 			

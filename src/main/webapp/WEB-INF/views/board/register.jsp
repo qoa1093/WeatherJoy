@@ -24,9 +24,19 @@
         <div class="panel-body">
 			<form action="/board/register" method="post" role="form">
 			<div >
-		          <label>한줄평 입력</label>
+		          <label>지역 입력</label>
 		         <br>
-		          <input class="backCol" name="title">
+		          <input  class="backCol region" name="bigRegion" value="${region}">
+		          <br>
+		          <label>상세 장소</label>
+		         <br>
+		          <input class="backCol region" name="smallRegion">
+		          <input name="bdRegion" value="">
+		    </div>	    
+			<div >
+		          <label>한줄평</label>
+		         <br>
+		          <input class="backCol" name="bdTitle">
 		    </div>
 			<div class="">
 		         <!--  <label>별점 입력</label> -->
@@ -49,7 +59,7 @@
 		   <div class="">
 		      <label>상세리뷰</label>
 		      <br/>
-		      <textarea class="backCol" rows="5" cols="50" name="content"></textarea>
+		      <textarea class="backCol" rows="5" cols="50" name="bdContent"></textarea>
 		   </div>
 		   
 		   <button type="submit" class="btn btn-default">submit btn</button>
@@ -166,7 +176,7 @@ $(document).ready(function(e){
 				
 			var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.fileName+"_"+obj.fileOriName);
 
-			str += "<li data-filePath='"+obj.filePath+"' data-fileName='"+obj.fileName"' data-fileOriname='"+obj.fileOriName+"' data-fileValid='"+obj.image+"'>"
+			str += "<li data-filePath='"+obj.filePath+"' data-fileName='"+obj.fileName+"' data-fileOriname='"+obj.fileOriName+"' data-fileValid='"+obj.image+"'>"
 					+"<div><span>"+obj.fileOriName+"</span><button type='button' class='btn btn-warning btn-circle' data-file=\'"+fileCallPath+"\' data-type='image'>"
 					+"<i class='fa fa-times'></i></button><br>"
 					+"<img src='/display?fileName="+fileCallPath+"'></div></li>";
@@ -195,6 +205,15 @@ $(document).ready(function(e){
 			}
 		})
 	})
+    //지역창 합해서 bdRegion 만들기
+	 $('.region').change(function(){
+  	 	let re1 = $('[name=bigRegion]').val();
+       let re2 = $('[name=smallRegion]').val();
+       let result = re1+" "+re2;
+       console.log(result);
+  		$('[name=bdRegion]').val(result);
+  	})
+		
 	
 })
 </script>

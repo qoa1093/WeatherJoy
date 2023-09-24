@@ -51,15 +51,18 @@ public class BoardController {
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 	}
 	@GetMapping({"/reviewget","/modify"})
-	public void get(@RequestParam("bno") long bno, @ModelAttribute("cri")Criteria cri, Model model) {
+	public void get(@RequestParam("bdNum") long bdNum, @ModelAttribute("cri")Criteria cri, Model model) {
 		log.info("/get or modify");
-		model.addAttribute("board", service.get(bno));
+		model.addAttribute("board", service.get(bdNum));
 	}
 	//어노테이션 라이브러리내에 존재
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/register")
-	public void registerGet() {
-		
+	public void registerGet(Model model, @RequestParam(value="keyword",required = false)String keyword ) {
+		if(keyword != null) {
+			log.info("정보"+keyword);
+			model.addAttribute("region", keyword);
+		}
 	}
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
@@ -93,7 +96,7 @@ public class BoardController {
 		rttr.addAttribute("amount", cri.getAmount());
 		rttr.addAttribute("type", cri.getType());
 		rttr.addAttribute("keyword", cri.getKeyword());
-		return "redirect:/board/list";
+		return "redirect:/board/reviewlist";
 	}
 	@PreAuthorize("principal.username == #writer")
 	@PostMapping("/remove")

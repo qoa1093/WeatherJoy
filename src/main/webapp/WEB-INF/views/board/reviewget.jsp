@@ -59,7 +59,7 @@
 		   <button data-oper="list" class="btn btn-default">List</button>
 		   
 		   <form id='operForm' action="/board/modify" method="get">
-			<input type='hidden' name='bno' value="<c:out value="${board.bdNum}"/>">
+			<input type='hidden' name='bdNum' value="<c:out value="${board.bdNum}"/>">
 			<input type='hidden' name='pageNum' value="<c:out value="${cri.pageNum}"/>">
 			<input type='hidden' name='amount' value="<c:out value="${cri.amount}"/>">
 			<input type='hidden' name='keyword' value="<c:out value="${cri.keyword}"/>">

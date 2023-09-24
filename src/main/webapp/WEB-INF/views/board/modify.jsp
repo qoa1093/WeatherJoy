@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     
 <%@include file="../includes/header.jsp" %>
+<link href="/resources/css/reviewget.css" rel= "stylesheet">
 <div id="page-wrapper">
 <div class="row">
    <div class="col-lg-12">
@@ -13,29 +14,50 @@
 </div>
    <div class="row">
 	<div class="col-lg-12">
-	<div class="panel panel-default">
+	<div class="panel panel-default panel-line">
 		<div class="panel-heading">
-  			board register page
+  			글 수정 페이지
   		</div>
   		<form action="">
                         <!-- /.panel-heading -->
         <div class="panel-body">
-			<div class="form-group">
-		          <label>boardNumber</label>
+			<div >
+		          <label>글 번호</label><br>
 		          <input class='' name='bdNum' readonly="readonly" value='<c:out value="${board.bdNum}"/>'>
+		          <input type="hidden" name='opBdNum'value='${board.opBdNum}'>
 		    </div>
-			<div class="form-group">
-		          <label>Title</label>
-		          <input class="" name="title" value='<c:out value="${board.bdTitle}"/>' >
+			<label>지역 입력</label>
+		         <br>
+		          <input  class="backCol region" name="bigRegion" value="">
+		          <br>
+		          <label>상세 장소</label>
+		         <br>
+		          <input class="backCol region" name="smallRegion">
+		          <input type="" name="bdRegion" value="${board.bdRegion}">
+		    </div>	    
+			<div >
+		          <label>한줄평</label>
+		         <br>
+		          <input class="backCol" name="bdTitle" value='<c:out value="${board.bdTitle}"/>' >
 		    </div>
-		
-			<div class="form-group">
-		          <label>writer</label>
-		        <input class="" name="writer" value='<c:out value="${board.writer}"/>' readonly="readonly">
+		<div class="">
+		         <!--  <label>별점 입력</label> -->
+		          <select name="opStar" class="star">
+		          <option value="1">★☆☆☆☆</option>
+		          <option value="2">★★☆☆☆</option>
+		          <option value="3">★★★☆☆</option>
+		          <option value="4">★★★★☆</option>
+		          <option value="5">★★★★★</option>		          
+		          </select>
+		    </div>
+		    <hr>
+			<div class="">
+		          <label>작성자</label>
+		        <input class="writer" name="writer" value='<c:out value="${board.writer}"/>' readonly="readonly">
 		   </div>
-		   <div class="form-group">
-		      <label>content</label>
-		      <textarea class="" rows="5" cols="50" name="content" ><c:out value="${board.bdContent}"/></textarea>
+		   <div class="">
+		      <label>상세리뷰</label>
+		      <textarea class="backCol" rows="5" cols="50" name="bdContent" ><c:out value="${board.bdContent}"/></textarea>
 		   </div>
 		   <button class="btn btn-default" data-oper='modify'>Modify btn</button>
 		     <button  class="btn btn-danger" data-oper='remove'>remove btn</button>
@@ -44,6 +66,7 @@
 			<input type='hidden' name='amount' value="<c:out value="${cri.amount}"/>">
 			<input type='hidden' name='type' value="<c:out value="${cri.type}"/>">
 			<input type='hidden' name='keyword' value="<c:out value="${cri.keyword}"/>">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
 			</form>
 		</div>
 		<div class="row">
@@ -68,7 +91,37 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
-	
+	 var opStarValue = "${board.opStar}";
+	  // 해당 값을 가진 <option> 요소를 선택
+	  $('select[name="opStar"]').val(opStarValue);
+	 
+	//원본 지역 문자열
+	var originalRegion = "${board.bdRegion}";
+
+	  //공백을 기준으로 지역 문자열을 분리
+	var regions = originalRegion.split(' ');
+
+	  //분리된 지역 문자열의 길이 확인
+	  if (regions.length >= 2) {
+	    // 첫 번째 부분을 대분류(bigRegion) 입력 필드에 설정
+	    $('input[name="bigRegion"]').val(regions.slice(0,2).join(' '));
+
+	    // 나머지 부분을 작은 분류(smallRegion) 입력 필드에 설정
+	    $('input[name="smallRegion"]').val(regions.slice(2).join(' '));
+	  } else {
+	    // 부분이 충분히 없을 경우 전체 지역 문자열을 대분류 입력 필드에 설정
+	    $('input[name="bigRegion"]').val(originalRegion);
+	  }
+	  
+	//지역창 합해서 bdRegion 만들기
+		 $('.region').change(function(){
+	  	 	let re1 = $('[name=bigRegion]').val();
+	       let re2 = $('[name=smallRegion]').val();
+	       let result = re1+" "+re2;
+	       console.log(result);
+	  		$('[name=bdRegion]').val(result);
+	  	})
+	  	
 	let formObj = $("form");
 	
 	$('.btn').on("click",function(e){

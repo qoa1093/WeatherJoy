@@ -40,4 +40,5 @@ public interface BoardMapper {
 	public List<BoardVO> searchTest(Map<String, Map<String, String>> map);
 	/*
 	*/
+	public long insertOpstar(BoardVO board);
 }

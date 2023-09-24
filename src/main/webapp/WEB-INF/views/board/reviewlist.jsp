@@ -192,7 +192,7 @@ $('.move').on('click', function(e){
 	e.preventDefault();
 	var targetBno = $(this).attr("href");
 	console.log(targetBno);
-	actionForm.append("<input type='hidden' name='bno' value='"+ targetBno+"'> ");
+	actionForm.append("<input type='hidden' name='bdNum' value='"+ targetBno+"'> ");
 	actionForm.attr("action", "/board/reviewget");
 	actionForm.submit();
 	
