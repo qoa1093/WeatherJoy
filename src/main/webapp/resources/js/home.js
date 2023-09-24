@@ -44,6 +44,8 @@ function init(){
                 d = "0" + d;
             }
             $('#selDay').val(d);*/
+           
+            
 }
         function getDate(){
             var newDate = new Date();
@@ -143,7 +145,7 @@ function init(){
                             console.log("좋음 : "+ $(this).find("cityName").text());
                             goodList.push($(this).find("totalCityName").text());
                             if(setNum%4==0){ setFullNum++;}
-                            getCard(setNum, $(this).find("totalCityName").text(), $(this).find("TCI_GRADE").text());
+                            getCard(setNum, $(this).find("totalCityName").text(), $(this).find("TCI_GRADE").text(),$(this).find("doName").text(),$(this).find("cityName").text());
                             
                             setNum++;
                             
@@ -152,7 +154,7 @@ function init(){
                                 console.log("매우좋음 : "+ $(this).find("cityName").text());
                                 veryGoodList.push($(this).find("totalCityName").text());
                                 if(setNum%4==0) setFullNum++;
-                                getCard(setNum, $(this).find("totalCityName").text(), $(this).find("TCI_GRADE").text());
+                                getCard(setNum, $(this).find("totalCityName").text(), $(this).find("TCI_GRADE").text(),$(this).find("doName").text(),$(this).find("cityName").text());
                                 setNum++;
                                 
                             }else{
@@ -190,11 +192,13 @@ function init(){
             month();
             day();
             init();
+            //$('#bt1').trigger('click');
+            goodDayList();
             $('#bt1').click(function(e){
                 e.preventDefault();
                 $('.cb1').html(""); 
                 $(".cb2").text("");           
-            if(cardText !== "") {cardText = ""; setNum=1; setFullNum=1;}
+            if(cardText !== "") {cardText = ""; setNum=1; setFullNum=1; goodList = []; veryGoodList = [];}
             goodDayList();
             })
             $('a').click(function(event){
@@ -311,15 +315,27 @@ function updateCardVisibility() {
         var cardText = "";
         let setNum = 1;
         let setFullNum = 1;
-        function getCard(setNum, totalCityName, TCI_GRADE){
-            
+        function getCard(setNum, totalCityName, TCI_GRADE,doName,cityName){
+            if(cityName.includes('구')) {
+                    cityName = cityName.replace('구', '');
+                    //cityName = cityName.substring(0,2);
+                    cityName='';                    
+            }else{
+            cityName = '+'+cityName;
+            }        
             cardText = cardText + //cardno1 : 카드 고유 번호 , fullset1 : 3개 마다 셋트바뀜
                 '<div class="recommendCard transed cardNo'+setNum+' fullset'+setFullNum+'"'+'id ="'+totalCityName+'">'+
                     '<i class="fa-solid fa-temperature-low">'+'</i>'+
                     '<div id = "fixText">'+
                     '<p>관광지 이름 <br/>' +totalCityName+'</p>'+
-                    '<p>관광지 날씨 <br/> '+ TCI_GRADE+'</p>'+
-                    '<p><a href="#">리뷰게시판</a></p></div>'+
+                    '<p>관광지 날씨 <br/> '+ TCI_GRADE+'</p></div>'+
+                    '<p class="reviewClick">'+'<a href="/board/register?keyword='+doName+''+cityName+'">리뷰쓰러가기</a></p>'+
                     '</div>';
            return {totalCityName, TCI_GRADE};
-        }
+		}
+			
+		
+		
+			
+			
+			

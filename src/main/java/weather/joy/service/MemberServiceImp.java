@@ -63,7 +63,7 @@ public class MemberServiceImp implements MemberService{
 		log.info(user.getMemNum());
 		user.setMemPw(pwencoder.encode(user.getMemPw()));
 		mapper.insertUser(user);
-		mapper.insertAuth(user.getMemId());
+		//mapper.insertAuth(user.getMemId());
 		 
 		String i = user.getMemId(); 
 		return i;

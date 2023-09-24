@@ -136,14 +136,21 @@ update member
 </resultMap>
 
  <resultMap type="weather.joy.domain.AuthVO" id="authMap">
-	<result property="userid" column="userid"/>
-	<result property="auth" column="auth"/>
+	<result property="userid" column="memId"/>
+	<result property="auth" column="memValid"/>
 </resultMap>
 
-<select id="readMember" resultMap="memberMap">
+<!-- <select id="readMember" resultMap="memberMap">
 	select *
 		From 
 			member mem left outer join member_auth auth on mem.memId = auth.userid
 				where mem.memId = #{userid}
-</select> 
+</select>  -->
+
+<select id="readMember" resultMap="memberMap">
+	select *
+		From 
+			member 
+				where memId = #{userid}
+</select>
 </mapper>
