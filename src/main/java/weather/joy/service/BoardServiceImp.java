@@ -108,11 +108,14 @@ public class BoardServiceImp implements BoardService{
 	public List<BoardVO> getList(Criteria cri){
 		log.info("getList.....");
 		log.info(mapper.getReviewListWithPaging(cri));
-		List<BoardVO> list = mapper.getReviewListWithPaging(cri);
+		List<BoardVO> list = mapper.getListWithPaging(cri);
 		for(BoardVO vo:list) {
 			String name = membermapper.selectMember(vo.getMemNum()).getMemId();
 			log.info("이름"+name);
 			vo.setWriter(name);
+			BoardVO b = mapper.getRead(vo.getBdNum());
+			log.info("별"+b.getOpStar());
+			vo.setOpStar(b.getOpStar());
 		}
 		log.info(list);
 		return list; 

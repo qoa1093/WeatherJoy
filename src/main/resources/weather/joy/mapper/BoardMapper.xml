@@ -149,12 +149,12 @@ set
 <select id="getReviewListWithPaging" resultType="weather.joy.domain.BoardVO">
 <![CDATA[
 SELECT  
-	bdNum, bdTitle, bdContent, memNum, bdRegion, bdDate, bdRegdate, opStar
+	bdNum, bdTitle, bdContent, memNum, bdRegion, bdDate, bdRegdate,opStar
 from
 (
 	SELECT 
 		/*+ index_desc(board pk_board)*/ 
-		rownum rn, bdNum, bdTitle, bdContent, memNum, bdRegion, bdDate, bdRegdate,opStar
+		rownum rn, bdNum, bdTitle, bdContent, memNum, bdRegion, bdDate, bdRegdate, opStar
 	 		FROM 
 	 			board ,optionwj
 	 				where 
