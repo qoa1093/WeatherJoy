@@ -89,8 +89,8 @@ values (seq_board.nextval,  #{bdTitle}, #{bdContent}, #{memNum}, #{bdRegion})
 	<selectKey keyProperty="bdNum" order="BEFORE" resultType="long">
 	select seq_board.nextval from dual
 	</selectKey>
-	insert into board (bdNum, bdTitle, bdContent, memNum, bdRegion)
-values (#{bdNum}, #{bdTitle}, #{bdContent}, #{memNum}, #{bdRegion})
+	insert into board (bdNum, bdTitle, bdContent, memNum, bdRegion, opBdNum)
+values (#{bdNum}, #{bdTitle}, #{bdContent}, #{memNum}, #{bdRegion},#{opBdNum})
 </insert>
 
 <select id="read" resultType="weather.joy.domain.BoardVO">
@@ -104,15 +104,31 @@ select b.bdNum, b.memNum, b.opBdNum, b.bdTitle, b.bdContent,b.bdView,b.bdRegion,
 </delete>
 
 <update id="update">
-update board
+ <![CDATA[
+BEGIN
+  
+  UPDATE board SET bdTitle = #{bdTitle}, bdContent= #{bdContent}, 
+    bdRegion = #{bdRegion}, bdRegdate =sysdate WHERE bdNum = #{bdNum};
+
+  UPDATE optionwj SET opStar = #{opStar} WHERE opBdNum=#{opBdNum};
+
+END;   
+]]>
+
+<!-- update board b join optionwj o
+	on b.opBdNum = o.opBdNum
 set  
-	bdTitle = #{bdTitle}, 
-	bdContent = #{bdContent}, 
+	b.bdTitle = #{bdTitle}, 
+	b.bdContent = #{bdContent}, 
 	memNum = #{memNum}, 
-	bdRegion = #{bdRegion}, 
-	bdRegdate =sysdate
-		where bdNum = #{bdNum}
+	b.bdRegion = #{bdRegion}, 
+	b.bdRegdate =sysdate,
+	o.opStar = #{opStar}
+		where b.bdNum = #{bdNum} -->
 </update>
+
+
+
 <!-- <select id="readWriter" resultType="weather.joy.domain.BoardVO">
 	 
 	select * from board where memNum = #{memNum}
@@ -133,12 +149,12 @@ set
 <select id="getReviewListWithPaging" resultType="weather.joy.domain.BoardVO">
 <![CDATA[
 SELECT  
-	bdNum, bdTitle, bdContent, memNum, bdRegion, bdDate, bdRegdate, opStar
+	bdNum, bdTitle, bdContent, memNum, bdRegion, bdDate, bdRegdate,opStar
 from
 (
 	SELECT 
 		/*+ index_desc(board pk_board)*/ 
-		rownum rn, bdNum, bdTitle, bdContent, memNum, bdRegion, bdDate, bdRegdate,opStar
+		rownum rn, bdNum, bdTitle, bdContent, memNum, bdRegion, bdDate, bdRegdate, opStar
 	 		FROM 
 	 			board ,optionwj
 	 				where 
@@ -150,7 +166,14 @@ from
 	<![CDATA[rownum <= #{pageNum} * #{amount})
 	 	where rn > (#{pageNum}-1) * #{amount}
 	]]>
-	 	
-
 </select>
+<insert id="insertOpstar">
+<selectKey keyProperty="opBdNum" order="BEFORE" resultType="long">
+	select seq_option.nextval from dual
+	</selectKey>
+insert into optionwj(opBdNum,opStar)
+values (#{opBdNum},#{opStar})
+</insert>
+
+
 </mapper>
