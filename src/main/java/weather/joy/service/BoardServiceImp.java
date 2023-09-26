@@ -107,7 +107,6 @@ public class BoardServiceImp implements BoardService{
 	@Override
 	public List<BoardVO> getList(Criteria cri){
 		log.info("getList.....");
-		log.info(mapper.getReviewListWithPaging(cri));
 		List<BoardVO> list = mapper.getListWithPaging(cri);
 		for(BoardVO vo:list) {
 			String name = membermapper.selectMember(vo.getMemNum()).getMemId();
