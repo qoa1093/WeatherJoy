@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="weather.joy.mapper.ReplyMapper">
  	<insert id="insert">
- 		insert into reply(rno, bno, reply, replyer)
- 			values(seq_reply.nextval, #{bno}, #{reply}, #{replyer})
+ 		insert into reply(rno, bdNum, reply, replyer)
+ 			values(seq_reply.nextval, #{bdNum}, #{reply}, #{replyer})
  	</insert>
  	<select id="read" resultType="weather.joy.domain.ReplyVO">
  		select * from reply where rno = #{rno}
@@ -16,12 +16,12 @@
  		select * from tbl_reply where bno = #{bno} order by rno asc
  		-->
  		<![CDATA[
- 		select rno, bno, reply, replyer, replydate, updatedate
+ 		select rno, bdNum, reply, replyer, replydate, updatedate
 		from(
 		select /*+INDEX(tbl_reply idx_reply)*/ 
-		    rownum rn, bno, rno, reply, replyer, replydate, updatedate
+		    rownum rn,  rno,bdNum, reply, replyer, replydate, updatedate
 		    from reply
-		    where bno = #{bno}
+		    where bdNum = #{bdNum}
 		    and rno>0
 		    and rownum<=#{cri.pageNum}*#{cri.amount}
 		    )where rn > (#{cri.pageNum}-1)*#{cri.amount}
@@ -29,7 +29,7 @@
  	</select>
  	<select id="getCountByBno" resultType="int">
  		<![CDATA[
- 		select count(rno) from reply where bno = #{bno} 		
+ 		select count(rno) from reply where bdNum = #{bdNum} 		
  		]]>
  	</select>
  	<delete id="delete">

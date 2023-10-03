@@ -38,18 +38,18 @@ public class ReplyServiceImp implements ReplyService{
 		return mapper.getListWithPaging(cri, bno);
 	}
 	@Override
-	public ReplyPageDTO getListPage(Criteria cri, long bno) {
+	public ReplyPageDTO getListPage(Criteria cri, long bdNum) {
 		return new ReplyPageDTO(
-				mapper.getCountByBno(bno),
-				mapper.getListWithPaging(cri, bno));
+				mapper.getCountByBno(bdNum),
+				mapper.getListWithPaging(cri, bdNum));
 	}
-	/*
 	@Transactional	  
 	@Override public int register(ReplyVO vo) { 
 		log.info("register......"+vo);
-		boardMapper.updateReplyCnt(vo.getBno(), 1); 
+		boardMapper.updateReplyCnt(vo.getBdNum(), 1); 
 		return mapper.insert(vo); 
 	}
+	/*
 	@Override
 	public ReplyVO get(long rno) { 
 		log.info("get......"+rno);

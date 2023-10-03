@@ -22,7 +22,7 @@
 			<div>
 		          <label>글 번호</label>
 		          <br>
-		          <input  name='bno' readonly="readonly" value='<c:out value="${board.bdNum}"/>'>
+		          <input  name='bdNum' readonly="readonly" value='<c:out value="${board.bdNum}"/>'>
 		    </div>
 		    <hr>
 		    <div>
@@ -92,7 +92,7 @@
 			</div>
 			<div class="panel-body">
 				<ul class="chat">
-					<li class = "left clearfix" data-rno='12'>
+					<!-- <li class = "left clearfix" data-rno='12'>
 						<div>
 							<div class="header">
 								<strong class="primary-font">user00</strong>
@@ -100,7 +100,7 @@
 							</div>
 							<p>good job!</p>
 						</div>
-					</li>			
+					</li> -->			
 				</ul>
 			</div>
 			<div class = "panel-footer">
@@ -131,7 +131,7 @@
             </div>      
             <div class="form-group">
               <label>Replyer</label> 
-              <input class="form-control" name='replyer' value='replyer'>
+              <input class="form-control" name='replyer' value='replyer' readonly>
             </div>
             <div class="form-group">
               <label>Reply Date</label> 
@@ -160,6 +160,9 @@
 		//댓글 리스트를 보여주기
 		function showList(page){
 			replyService.getList({bdNum:bdNumValue,page:page||1}, function(replyCnt,list){
+				console.log("replyCnt-----"+replyCnt);						
+				console.log(list);
+			
 				if(page == -1){
 					pageNum = Math.ceil(replyCnt/10.0);
 					showList(pageNum);
@@ -172,6 +175,7 @@
 					
 					return;
 				}
+				//console.log(list.length);
 				for (var i = 0, len = list.length ||0 ; i < len; i++) {
 					str +="<li class='left clearfix' data-rno='"+list[i].rno+"'>";
 					str +="<div><div class='header'><strong class = 'primary-font'>["+list[i].rno+"]"+list[i].replyer+"</strong>";
@@ -247,7 +251,8 @@
 			xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
 		
 		})
-		//추가 버튼 클릭 시 새댓글창 열리기 		
+		//추가 버튼 클릭 시 새댓글창 열리기 
+		//$(document).on("click", "#addReplyBtn", function(e) {
 		$('#addReplyBtn').on('click',function(e){
 			modal.find("input").val("");
 			//모달창에서 댓글작성자 값 보여주기
@@ -259,7 +264,7 @@
 			modalInputReplyDate.closest("div").hide();
 			modal.find("button[id != 'modalCloseBtn']").hide();
 			modalRegisterBtn.show();
-			$("#myModal").modal("show");
+			modal.modal("show");
 		})
 		//작성버튼 클릭시 작성되기
 		$('#modalRegisterBtn').on("click",function(e){
@@ -269,6 +274,7 @@
 					bdNum : bdNumValue
 					
 			};
+			console.log(reply);
 			replyService.add(reply, function(result){
 				
 				//alert(result);

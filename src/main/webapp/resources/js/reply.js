@@ -5,6 +5,7 @@ var replyService = (function(){
 
 function add(reply, callback,error){
 	console.log("reply add --------------")
+	console.log(reply)
 	 $.ajax({
  	type:'post',
  	url:'/replies/new',
@@ -29,7 +30,7 @@ var page = param.page || 1;
 $.getJSON("/replies/pages/" + bdNum+"/"+page + ".json",
 	function(data){
 		if(callback){
-			callback(data);
+			callback(data.replyCnt, data.list);
 		}
 	}).fail(function(xhr, status, err){
 		if(error){

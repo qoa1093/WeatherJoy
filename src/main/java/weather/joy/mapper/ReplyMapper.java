@@ -16,7 +16,7 @@ public interface ReplyMapper {
 	public ReplyVO read(long rno);
 	public int delete(long targetRno);
 	public int update(ReplyVO reply);
-	public List<ReplyVO> getListWithPaging(@Param("cri") Criteria cri, @Param("bno") long bdNum);
-	public int getCountByBno(long bno);
+	public List<ReplyVO> getListWithPaging(@Param("cri") Criteria cri, @Param("bdNum") long bdNum);
+	public int getCountByBno(long bdNum);
 	
 }

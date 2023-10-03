@@ -42,9 +42,10 @@ public class ReplyController {
 			@PathVariable("page") int page,
 			@PathVariable("bdNum") long bdNum){
 				Criteria cri = new Criteria(page, 10);
+				//log.info(service.getListPage(cri, bdNum));
 				return new ResponseEntity<>(service.getListPage(cri, bdNum), HttpStatus.OK);
 	}
-	/*
+	
 		@PreAuthorize("isAuthenticated()")
 	@PostMapping(value="/new", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> create(@RequestBody ReplyVO vo){
@@ -55,7 +56,7 @@ public class ReplyController {
 					new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	
+		/*
 	//댓글조회
 	@GetMapping(value="/{rno}", produces= {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<ReplyVO> get(
