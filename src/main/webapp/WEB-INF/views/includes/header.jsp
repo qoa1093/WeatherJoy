@@ -31,7 +31,7 @@
                 	<p class="helloMent"> <sec:authentication property="principal.username"/>님 환영합니다.</p>
                 	<div class="navbar-atag">
                 		<a href="/member/signout">로그아웃</a>
-                		
+                		<input type="hidden" id="username" value="<sec:authentication property="principal.username" />">
                 		<a href="/board/reviewlist">리뷰게시판</a>
                 	</div>
                 </sec:authorize>
@@ -53,3 +53,33 @@
             </div>
             <!-- /.navbar-header -->    
 </div>
+<script type="text/javascript">
+$(document).ready(function(){      
+	var menubar = "<nav class='menuBarOpen'><ul>"
+					+"<li class='menubarblock'>"
+					+"<a class='move' href =''>마이페이지</a></li>"
+					+"<li class='menubarblock'><a href='/board/reviewlist'>한줄리뷰게시판</a></li>"+"<li class='menubarblock'>이미지게시판</li></ul></nav>";
+	$('#menu').append(menubar);
+	$(".menuBarOpen").hide();
+	$("#menu").on("click", function(e) {
+	
+			e.stopPropagation();
+	       $(".menuBarOpen").slideToggle();
+	
+	 })
+	 $('.menubarblock').on("click",function(e){
+			e.stopPropagation();
+		
+	 })
+	 $('.move').on('click', function(e){
+		e.preventDefault();
+		var memID = $('#username').val();
+		console.log(memID);
+		 var redirectUrl = "/member/mypage?memId=" + memID;
+	    // 페이지 리다이렉션 수행
+	    window.location.href = redirectUrl;
+	 }) 
+	
+})
+
+</script>

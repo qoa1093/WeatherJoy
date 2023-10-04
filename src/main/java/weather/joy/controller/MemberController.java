@@ -1,11 +1,13 @@
 package weather.joy.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -121,6 +123,13 @@ public class MemberController {
 	public String idCheck(String memId)throws Exception{
 		//log.info("아이디 : "+memId);
 		return service.getMemId(memId) == null ? "OK":"FAIL";
+	}
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/mypage")
+	public void mypageGet(Model model, @RequestParam("memId")String memId) {
+		MemberVO member = service.getRead(memId);
+		log.info("멤버 ----"+member);
+		model.addAttribute("member", member);
 	}
 	
 }

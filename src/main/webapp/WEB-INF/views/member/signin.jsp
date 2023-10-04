@@ -28,8 +28,8 @@
         input[type="checkbox"]:checked {
          border-radius: 50%; appearance: none;
         }
-        .fa-solid.fa-circle-check{
-            appearance: none; display: none;
+        .fa-solid{
+             display: none;
         }
         .autoLabel:hover{
             cursor: pointer;
@@ -94,11 +94,11 @@
                     <p></p>
                     <input type="password" name="password" class="weatherIdPwd"id="weatherPwd">
                 </div>
-                <label class="autoLabel"><input id="autoLogin" name= "remember-me" type="checkbox">
+                <span class="autoLabel"><input id="autoLogin" name= "remember-me" type="checkbox">
                     <i class="fa-regular fa-circle-check" style="color: #ffbd80;"></i>
                     <i class="fa-solid fa-circle-check" style="color: #fbcb46;"></i>
                     자동로그인
-                </label>
+                </span>
                     <p/>
                     <a href=""> 비밀번호찾기 </a> <a href=""> 아이디찾기 </a>
                     <p></p>
@@ -194,6 +194,25 @@ var socialService = (function(){
     	$('.signUpBtn').on("click",function(){
     	window.location.href = <%-- '<%=request.getContextPath()%>'+ --%>"/member/signup"; 
     	})
+    	
+    	//체크하면 아이콘 색이 채워지도록 변경
+	    $(".centerbtn").on("click",'.autoLabel',function(e) {
+	        e.stopPropagation();
+		    const regularIcon = $(this).find('.fa-regular');
+		    console.log(regularIcon);
+	    	const solidIcon = $(this).find('.fa-solid');
+	        
+	        if(solidIcon.css('display') ==='none') {
+	            regularIcon.hide();
+	            solidIcon.show();
+	            
+	        }else{
+	            regularIcon.show();
+	            solidIcon.hide();
+	            
+	        }
+	 
+	    })
     })
     </script> 
 </html>
