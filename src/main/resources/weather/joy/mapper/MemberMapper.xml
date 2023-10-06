@@ -105,14 +105,13 @@ values (#{memId})
 
 <update id="update">
 update member
-	set memNum = #{memNum},
-		memId=#{memId}, 
+	set		 
 		memName=#{memName}, 
 		memPw=#{memPw},
 		memAge=#{memAge}, 
 		memPhone = #{memPhone},
 		memAddr=#{memAddr},
-		memHobby=#{memHobby}
+		memHobby=#{memHobby},
 		memAValid=#{memAValid} 
 		
 			where memId=#{memId}

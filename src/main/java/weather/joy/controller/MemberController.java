@@ -124,12 +124,21 @@ public class MemberController {
 		//log.info("아이디 : "+memId);
 		return service.getMemId(memId) == null ? "OK":"FAIL";
 	}
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/mypage")
+	@PreAuthorize("principal.username == #memId")
+	@GetMapping({"/mypage","/modify"})
 	public void mypageGet(Model model, @RequestParam("memId")String memId) {
 		MemberVO member = service.getRead(memId);
 		log.info("멤버 ----"+member);
 		model.addAttribute("member", member);
 	}
 	
+	@PostMapping("/modify")
+	public String modifyGet(Model model, MemberVO member) {
+		log.info(member);
+		service.modify(member);
+		model.addAttribute("memId", member.getMemId());
+		return "redirect:/member/mypage";
+		
+	
+	}
 }

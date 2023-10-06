@@ -4,11 +4,11 @@
 <%@include file="../includes/header.jsp" %>
 <link href="${pageContext.request.contextPath}/resources/css/sign.css" rel="stylesheet">
     <div class="centerClass">
-            <form action="/member/signup" method="post" id="myform" autocomplete="off" role="form" accept-charset="UTF-8">
-           <!-- <form id="myform"> -->
+            
+          <div>
                 <div class="signup-wrapper">
                 	<p>아이디</p>
-                    <input type="text" class="weatherSignUp" name="memId" value='<c:out value="${member.memId}"/>' readonly> 
+                    <input type="text" class="weatherSignUp" name="memId" value='<c:out value="${member.memId}"/>' readonly > 
                     <p></p>
                     <input type="hidden" name="memPw" class="weatherSignUp" value='<c:out value="${member.memPw}"/>' readonly>
                     <p>이름</p>                   
@@ -72,11 +72,11 @@
 	                    <i class="fa-solid fa-circle-check" style="color: #fbcb46;"></i>
                     <input type="checkbox" class="hobby" name="checkboxes" value="39">음식점&nbsp;
                     </span>
-                    <input id="selectedValues" type="text" name="memHobby" value='<c:out value="${member.memHobby}"/>' readonly>
+                    <input id="selectedValues" type="hidden" name="memHobby" value='<c:out value="${member.memHobby}"/>' readonly>
                     </p>
                     <span>반려동물 여부</span>
 					<p class="centerCss">                    
-                    <input type="radio" name="memAValid" value="Y">&nbsp;<span>네</span> &nbsp;&nbsp;&nbsp;<input type="radio" name="memAValid" value="N">&nbsp;<span>아니오</span>
+                    <input type="radio" name="memAValid" value="Y" disabled>&nbsp;<span>네</span> &nbsp;&nbsp;&nbsp;<input type="radio" name="memAValid" value="N" disabled>&nbsp;<span>아니오</span>
                     </p>
 					
                     <p></p>
@@ -86,77 +86,58 @@
                     <p/>
                     
                     <p></p>
-                    <button type="button" class="sign signUp-Btn" id="signUp-Btn">가입하기</button> 
-                    <button type="reset" class="sign ">재등록</button>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
-           </form>
+                    <button data-oper="modify" type="button" class="sign " id="infoModifyBtn">수정하기</button> 
+                    <button data-oper="termination" type="button" class="sign signUp-Btn" id="terminationBtn">회원탈퇴</button>
+                    </div>
+          <form id='operForm' method="get">
+			<input type='hidden' name='memId' value="<c:out value="${member.memId}"/>">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">			
+		   </form>
            
            
     </div>
 </body>
 <script>
 $(document).ready(function(){
-	//console에 form 내용 전체 찍어보는 코드
-$(".centerClass").on("click",'#signUp-Btn',function(e) {
-var form = document.getElementById('myform');
-var formData = new FormData(form);
-    for (const [key, value] of formData.entries()) {
-    	 console.log(key + ':', value);
-    	 if (!value || value.trim() === '') return;
-    }
-    form.submit();
-})
+	var hobbyString = "${member.memHobby}";
+	var list = hobbyString.split(',');
+	CheckboxList(list)
+	Animalvalid("${memAValid}")
+	
+	
+	//실행시 히든 인풋창에 있는 관심분야를 체크한 상태로 보이게 하는 코드
+	function CheckboxList(list){
+		for(var checkboxitem of list){
+			checkClicked(checkboxitem)
+			/* switch(checkbox){
+			case 12:
+				관광 28 레저스포츠 14문화시설 15축제공연행사 25여행코스 32 숙박 38 쇼핑 39 음식점
+			} */
+		}
+	}
 	//체크하면 아이콘 색이 채워지도록 변경
-    $(".signup-wrapper").on("click",'.Lclick',function(e) {
-        e.stopPropagation();
-	    const regularIcon = $(this).find('.fa-regular');
-    	const solidIcon = $(this).find('.fa-solid');
-        
-        if(solidIcon.css('display') ==='none') {
-            regularIcon.hide();
-            solidIcon.show();
-            
-        }else{
-            regularIcon.show();
-            solidIcon.hide();
-            
-        }
- 
-    })
-var contextPath = '<%=request.getContextPath()%>';
-var memberService = (function(){
-	function idCheck(contextPath, memId){		
-		var flag = false;
-		console.log("멤버아이디 :"+ memId)
-		$.ajax({
-			async: false,
-    		type : 'post',
-    		url  : contextPath + '/member/idCheck',
-    		data : {"memId" : memId},
-    		success : function(res){
-    			if(res == 'OK'){
-    				console.log(res);
-    				flag = true;
-    			}else{
-    				console.log("실패"+res);
-    				flag = false;
-    			}
-    		}
-    	})
-    	return flag;
+	function checkClicked(checkboxitem){
+		var checkbox = $('input[value="'+checkboxitem+'"]');
+		const regularIcon = checkbox.siblings('.fa-regular');
+		const solidIcon = checkbox.siblings('.fa-solid');
+		    
+		        regularIcon.hide();
+		        solidIcon.show();
+		
 	}
-	return {
-		name : 'memberService',
-		idCheck : idCheck 
+	function Animalvalid(valid){
+		if(valid ==='Y'){
+			$('input[value="Y"]').prop('checked', true);
+		}else{
+			$('input[value="N"]').prop('checked', true);
+		}
 	}
-})();
-    
+	$(document).ajaxSend(function(e, xhr, options) {
+	xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
+	});
 })
-$(document).ajaxSend(function(e, xhr, options) {
-xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
-});
-    </script>
-    <script>
+</script>
+<script>
    /*  $(document).ready(function() {
     	var result = $("#selectedValues").val();
     	$("input[name=checkboxs]").each(function(index,item){
@@ -187,6 +168,18 @@ xhr.setRequestHeader( "${_csrf.headerName}", "${_csrf.token}" );
                     //console.log("결과"+result);
                 });
             });
-        
+
+$(document).ready(function(){
+  var operForm = $('#operForm');
+  $("button[data-oper='modify']").on("click",function(e){
+       e.preventDefault();
+       operForm.attr("action", "/member/modify").submit();
+  })
+  $("button[data-oper='termination']").on("click",function(e){
+       e.preventDefault();
+       
+       operForm.attr("action", "/member/termination").submit();
+  })
+})
     </script>
 </html>

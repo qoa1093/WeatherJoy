@@ -77,7 +77,7 @@ public class MemberServiceImp implements MemberService{
 	@Override
 	public int modify(MemberVO user) { 
 		log.info("modify......"+user);
-		
+		user.setMemPw(pwencoder.encode(user.getMemPw()));
 		 //MemberVO user1 = mapper.read(user);
 		return mapper.update(user);
 	}

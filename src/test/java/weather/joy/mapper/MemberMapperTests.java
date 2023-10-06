@@ -8,6 +8,7 @@ import java.util.Map;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +19,12 @@ import weather.joy.domain.Criteria;
 import weather.joy.domain.MemberVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml",
+"file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 @Log4j
 public class MemberMapperTests {
-	
+	@Setter(onMethod_ = @Autowired)
+	private PasswordEncoder pwencoder;
 	
 	@Setter(onMethod_ = {@Autowired})
 	private MemberMapper mapper;
@@ -78,14 +81,15 @@ public class MemberMapperTests {
 	
 	@Test
 	public void testUpdate() {
-		MemberVO user = new MemberVO();
 		
-		user.setMemId("user001");
-		user.setMemPw("user001!");;
-		user.setMemName("박유저");
-		user.setMemAddr("충남 천안시");
-		user.setMemPhone("010-2244-7661");
+		MemberVO user = mapper.read("1234");
 		
+		user.setMemId("1234");
+		user.setMemPw(pwencoder.encode("1234"));
+		/*
+		 * user.setMemName("박유저"); user.setMemAddr("충남 천안시");
+		 * user.setMemPhone("010-2244-7661");
+		 */
 		int i = mapper.update(user);
 		
 		log.info("---------------count : " + i);
