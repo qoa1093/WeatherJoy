@@ -3,49 +3,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@include file="../includes/header.jsp" %>
 <link href="${pageContext.request.contextPath}/resources/css/sign.css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/resources/js/address.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.4.0/kakao.min.js" 
-  	integrity="sha384-mXVrIX2T/Kszp6Z0aEWaA8Nm7J6/ZeWXbL8UpGRjKwWe56Srd/iyNmWMBhcItAjH" crossorigin="anonymous"></script>
     <div class="centerClass">
-        <!--  <div class="centerbtn">-->
-            <!--  <p id="weatherLogo">날씨조이</p>-->
-          <%--   <c:forEach items="${List}" var="list">
-            <c:out value="${list.memId}" />
-            </c:forEach> --%>
             <form action="/member/signup" method="post" id="myform" autocomplete="off" role="form" accept-charset="UTF-8">
            <!-- <form id="myform"> -->
                 <div class="signup-wrapper">
-                    <input type="text" class="weatherSignUp" name="memId" id="memId" placeholder="아이디를 입력하세요.">                   
+                	<p>아이디</p>
+                    <input type="text" class="weatherSignUp" name="memId" value='<c:out value="${member.memId}"/>' readonly> 
                     <p></p>
-                    <input type="password" name="memPw" class="weatherSignUp" id="Pwd" placeholder="비밀번호를 입력하세요.">
-                    <p></p>
-
-                    <input type="password" class="weatherSignUp"id="Pwd2" placeholder="비밀번호를 재입력하세요.">
-
-
-                    <p></p>
-                    <input type="text" class="weatherSignUp" name = "memName" id="memName" placeholder="이름을 입력하세요.">
-                    <p></p>
-                    <input type="text" class="weatherSignUp" name="memAge" placeholder="나이를 입력하세요.">
-                    <p></p>
-                    <input type="text" class="weatherSignUp" name="memPhone" placeholder="핸드폰 번호를 -빼고 입력하세요.">
-                    <p></p>
+                    <input type="hidden" name="memPw" class="weatherSignUp" value='<c:out value="${member.memPw}"/>' readonly>
+                    <p>이름</p>                   
+                    <input type="text" class="weatherSignUp" name = "memName" value='<c:out value="${member.memName}"/>' readonly>
+                    <p>나이</p>
+                    <input type="text" class="weatherSignUp" name="memAge" value='<c:out value="${member.memAge}"/>' readonly>
+                    <p>연락처</p>
+                    <input type="text" class="weatherSignUp" name="memPhone" value='<c:out value="${member.memPhone}"/>' readonly>
+                    <p>주소</p>
                     <div class="address">
-					<input type="text" class="weatherSignUp mini" id="postcode" size="3" placeholder="우편번호">
-					<button type ="button" id="searchBtn" class="sign">주소 검색</button>
-					<p></p>
-					<input type="text" class="weatherSignUp" id="address" placeholder="기본주소">
-					<p></p>
-					<input type="text" class="weatherSignUp" id="detailAddress" name="datailAd" size="8" placeholder="상세주소를 반드시 입력하세요.">
-					<input type="hidden" class="weatherSignUp" id="extraAddress" readonly>
-					<input type="hidden" class="weatherSignUp" name="memAddr">
-					</div>
-                    <!-- <input type="text" class="weatherSignUp" name = "memAddr" id="memAddr" placeholder="주소를 입력하세요."> -->
+					<input type="text" class="weatherSignUp" name="memAddr" value='<c:out value="${member.memAddr}"/>' readonly>
+					</div>                    
                     <p></p>
 		
 		
-                    <span>관심분야(1개 이상 반드시 선택)</span>
+                    <span>관심분야</span>
                     <p id="checkedList">
                     <span class="Lclick hobbyspan">
                     <input type="checkbox" class="hobbyBox" name="checkboxes" value="12">
@@ -93,7 +72,7 @@
 	                    <i class="fa-solid fa-circle-check" style="color: #fbcb46;"></i>
                     <input type="checkbox" class="hobby" name="checkboxes" value="39">음식점&nbsp;
                     </span>
-                    <input id="selectedValues" type="hidden" name="memHobby">
+                    <input id="selectedValues" type="text" name="memHobby" value='<c:out value="${member.memHobby}"/>' readonly>
                     </p>
                     <span>반려동물 여부</span>
 					<p class="centerCss">                    
@@ -127,57 +106,6 @@ var formData = new FormData(form);
     }
     form.submit();
 })
-
-/*
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // 폼의 기본 동작을 막습니다.
-
-        // FormData 객체를 생성하고 폼의 모든 값을 가져옵니다.
-        const formData = new FormData(form);
-
-        // FormData 객체의 값을 반복하면서 콘솔에 출력합니다.
-        for (const [key, value] of formData.entries()) {
-            console.log(key + ':', value);
-        }
-    }); */
-    //아이디 중복 체크
-    /* $('.signup-wrapper').on("click",'.duplespan',function(e){
-    	//e.preventDefault();
-    	var List = ${List};
-    	console.log(List);
-    	//눌렀을 시 아이디중복체크 화면으로
-    	if($(this).find('.fa-solid').css('display') ==='none') {
-    	console.log("으악");
-    	List.forEach(function(user) {
-    	    var prevSibling = $(user).prev();
-    	    if (prevSibling.hasClass('duplespan') && prevSibling.find('input').val() === user.memId) {
-    	        console.log("똑같다~");
-    	    })
-    	});
-    		
-    	}else{
-    		console.log("비었다!")
-    	}
-    	}) */
-    	
-    	
-    	
-    	
-    	//주소값을 합해서 히든 인풋 창에 넣어서 name속성을 타고 보내기
-    $('.address').change(function(){
-   	 var ad1 = $('#postcode').val();
-        var ad2 = $('#address').val();
-        var ad3 = $('#detailAddress').val();
-        var ad4 = $('#extraAddress').val();
-        var address = '('+ ad1 + ')' + ad2 +' '+ ad3 + ad4;
-        console.log(address);
-   	$('[name=memAddr]').val(address);
-   })
-   //주소검색 버튼을 누르면 주소검색창이 열림
-   $('#searchBtn').click(function(){
-		//sample6_execDaumPostcode();
-		addressService.addressSearch('[name=memAddr]');
-	})
 	//체크하면 아이콘 색이 채워지도록 변경
     $(".signup-wrapper").on("click",'.Lclick',function(e) {
         e.stopPropagation();
@@ -195,32 +123,6 @@ var formData = new FormData(form);
         }
  
     })
-    //id중복검사
-    $('.signup-wrapper').on("click",'.duplespan',function(e){
-    	
-       	var memId = $('#memId').val();
-       	console.log(memId);
-       	if(memId == null || memId == ''){
-   			alert('아이디를 입력하세요.');
-   			$(this).find('.fa-solid').hide();
-       		$(this).find('.fa-regular').show();
-   			return;
-   		}
-       	/* var idRegex = /^[a-z0-9_-]{5,20}$/;
-       	if(!idRegex.test(memId))
-       		return; */
-       	var res = memberService.idCheck(contextPath, memId);
-       	console.log(res);
-       	//console.log(res);
-       	if(res)
-       		alert('사용 가능한 아이디입니다.')
-       	else{
-       		console.log(res);
-       		alert('이미 가입된 아이디입니다.')
-       		$(this).find('.fa-solid').hide();
-       		$(this).find('.fa-regular').show();
-       	}
-     })
 var contextPath = '<%=request.getContextPath()%>';
 var memberService = (function(){
 	function idCheck(contextPath, memId){		

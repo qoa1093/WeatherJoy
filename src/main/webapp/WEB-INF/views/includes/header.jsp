@@ -56,8 +56,8 @@
 <script type="text/javascript">
 $(document).ready(function(){      
 	var menubar = "<nav class='menuBarOpen'><ul>"
-					+"<li class='menubarblock'>"
-					+"<a class='move' href =''>마이페이지</a></li>"
+					+"<sec:authorize access="isAuthenticated()" ><li class='menubarblock'>"
+					+"<a id='mypage' href =''>마이페이지</a></li></sec:authorize>"
 					+"<li class='menubarblock'><a href='/board/reviewlist'>한줄리뷰게시판</a></li>"+"<li class='menubarblock'>이미지게시판</li></ul></nav>";
 	$('#menu').append(menubar);
 	$(".menuBarOpen").hide();
@@ -71,7 +71,7 @@ $(document).ready(function(){
 			e.stopPropagation();
 		
 	 })
-	 $('.move').on('click', function(e){
+	 $('#mypage').on('click', function(e){
 		e.preventDefault();
 		var memID = $('#username').val();
 		console.log(memID);
