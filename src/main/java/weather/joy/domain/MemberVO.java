@@ -24,6 +24,7 @@ public class MemberVO {
 	private Date memDate;//
 	private String username;
 	private String memValid;
+	private String memEmail;
 	
 	private List<AuthVO> authList;
 	

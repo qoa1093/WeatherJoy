@@ -43,4 +43,5 @@ public interface MemberMapper {
 		
 		public MemberVO selectMember(long memNum);
 		
+		public int updatePw(@Param("memPw")String memPw , @Param("memEmail")String memEmail);
 }
