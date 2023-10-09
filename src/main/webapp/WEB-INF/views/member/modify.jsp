@@ -34,6 +34,8 @@
                     <input type="text" class="weatherSignUp" name="memAge" value='<c:out value="${member.memAge}"/>' >
                     <p>연락처</p>
                     <input type="text" class="weatherSignUp" name="memPhone" value='<c:out value="${member.memPhone}"/>'>
+                    <p>이메일</p>
+                    <input type="text" class="weatherSignUp" name="memEmail" value='<c:out value="${member.memEmail}"/>'>
                     <p></p>
                     <div class="address">
 					<input type="text" class="weatherSignUp mini" id="postcode" size="3" placeholder="우편번호">

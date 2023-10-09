@@ -100,7 +100,7 @@
                     자동로그인
                 </span>
                     <p/>
-                    <a href=""> 비밀번호찾기 </a> <a href=""> 아이디찾기 </a>
+                    <a href="javascript:void(0);" onclick="newWindow('findPw', '비밀번호찾기', 440, 400);">비밀번호찾기</a> <a href=""> 아이디찾기 </a>
                     <p></p>
                     <button type="submit"  class="sign signInBtn" id="signInBtn">로그인</button> 
                     <button type="button" class="sign signUpBtn">회원가입</button>                  
@@ -213,6 +213,15 @@ var socialService = (function(){
 	        }
 	 
 	    })
+	    
+	   
     })
+     <!-- 아이디찾기/비밀번호재설정 새 창 띄우기-->
+        function newWindow(url, name, width, height) {
+            var left = (window.innerWidth - width) / 2;
+            var top = (window.innerHeight - height) / 2;
+            var options = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left;
+            window.open(url, name, options);
+        }
     </script> 
 </html>
