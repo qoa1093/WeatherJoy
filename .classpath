@@ -36,5 +36,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/JDK/ojdbc11.jar"/>
+	<classpathentry kind="lib" path="D:/weatherJoy/javax.mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
