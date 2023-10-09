@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +27,7 @@ import lombok.extern.log4j.Log4j;
 import weather.joy.domain.Criteria;
 import weather.joy.domain.MemberVO;
 import weather.joy.domain.PageDTO;
+import weather.joy.service.MailService;
 import weather.joy.service.MemberService;
 
 @Controller
@@ -33,7 +35,12 @@ import weather.joy.service.MemberService;
 @RequestMapping("/member/*")
 @AllArgsConstructor
 public class MemberController {
-	 private MemberService service;
+	 
+	@Autowired
+	private MemberService service;
+	 
+	 @Autowired
+	private MailService mailService;
 
 	/*
 	 * @GetMapping("/list") public void list(Model model, Criteria cri) {
@@ -80,7 +87,7 @@ public class MemberController {
 		//log.info("회원가입창 출력");
 	}
 
-	@GetMapping("/signin")
+	@GetMapping({"/signin","/findPw"})
 	public void signinGet() {
 	
 	}
@@ -124,6 +131,25 @@ public class MemberController {
 		//log.info("아이디 : "+memId);
 		return service.getMemId(memId) == null ? "OK":"FAIL";
 	}
+	
+	
+
+	@GetMapping(value ="/mailCheck", produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String mailCheck(String memId) throws Exception {
+        if (service.getRead(memId) == null) {
+            return "아이디가 틀립니다.";
+        }
+        String email = service.getRead(memId).getMemEmail();
+        String result = mailService.pwEmail(email);
+        if (result != null) {
+            return service.getRead(memId).getMemEmail()+"로 비밀번호를 보냈습니다.\n 해당 비밀번호로 로그인 뒤 비밀번호를 변경하세요.";
+        } else {
+            return "발송에 실패하였습니다.";
+        }
+    }
+	
+	
 	@PreAuthorize("principal.username == #memId")
 	@GetMapping({"/mypage","/modify"})
 	public void mypageGet(Model model, @RequestParam("memId")String memId) {
