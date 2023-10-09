@@ -37,6 +37,8 @@
                     <p></p>
                     <input type="text" class="weatherSignUp" name="memPhone" placeholder="핸드폰 번호를 -빼고 입력하세요.">
                     <p></p>
+                    <input type="text" class="weatherSignUp" name="memEmail" placeholder="@를 포함하여 이메일 주소를 입력하세요.">
+                    <p></p>
                     <div class="address">
 					<input type="text" class="weatherSignUp mini" id="postcode" size="3" placeholder="우편번호">
 					<button type ="button" id="searchBtn" class="sign">주소 검색</button>
