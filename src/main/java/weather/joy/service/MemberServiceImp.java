@@ -27,6 +27,7 @@ import weather.joy.domain.Criteria;
 import weather.joy.domain.MemberVO;
 import weather.joy.domain.SocialVO;
 import weather.joy.mapper.MemberMapper;
+import weather.joy.security.domain.CustomUser;
 
 
 
@@ -167,6 +168,7 @@ public class MemberServiceImp implements MemberService{
 			  userInfo.setSoToken(token);
 			  //소셜가입 완료
 				mapper.insertSocialUser(userInfo);
+				new CustomUser(userInfo);
 			  }
 			 
 		} catch (IOException e) {
@@ -233,6 +235,18 @@ public class MemberServiceImp implements MemberService{
         return access_Token;
         
     }
+	@Override
+	public String getReadID(String memName, String memEmail) {
+		if(memName == null || memEmail == null)
+		{return null;}
+		String id = "";
+		id = mapper.getReadID(memName, memEmail);
+		if(id!="") {
+			return id; 
+		}else {
+			return null;			
+		}
+	}
 	/*
 	 * @Override public MemberVO signIn(MemberVO user) { //if() MemberVO member =
 	 * mapper.read(user.getMemId()); if(member != null &&
