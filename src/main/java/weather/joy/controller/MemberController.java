@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -87,13 +88,11 @@ public class MemberController {
 		//log.info("회원가입창 출력");
 	}
 
-	@GetMapping({"/signin","/findPw"})
-	public void signinGet() {
-	
-	}
+	@GetMapping(value={"/signin", "/findPw", "/findId"},produces = "text/plain;charset=UTF-8")
+	public void get() {}
 
 	@PostMapping("/signup")
-	public String signupPost(MemberVO user) {
+	public String signupPost(MemberVO user) { 
 		if(user==null) return "redirect:/member/signup";
 		log.info("유저:"+user);
 		String memId = service.register(user);
@@ -146,6 +145,20 @@ public class MemberController {
             return service.getRead(memId).getMemEmail()+"로 비밀번호를 보냈습니다.\n 해당 비밀번호로 로그인 뒤 비밀번호를 변경하세요.";
         } else {
             return "발송에 실패하였습니다.";
+        }
+    }
+	
+	@GetMapping(value ="/IDCheck", produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String IDCheck(@Param("memName")String memName, @Param("memEmail")String memEmail) throws Exception {
+        if (service.getReadID(memName, memEmail) == null) {
+            return "아이디가 없거나 이름 또는 이메일이 틀렸습니다.";
+        }
+        String result = service.getReadID(memName, memEmail);
+        if (result != null) {
+            return "회원님의 아이디는 "+result+"입니다.";
+        } else {
+            return "오류가 발생하였습니다.다시 시도하세요.";
         }
     }
 	

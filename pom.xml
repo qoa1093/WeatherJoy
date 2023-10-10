@@ -41,12 +41,32 @@
 	
 	<!-- oauth2-client -->
 	<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client -->
-<dependency>
+<!-- <dependency>
     <groupId>org.springframework.security</groupId>
     <artifactId>spring-security-oauth2-client</artifactId>
     <version>5.2.7.RELEASE</version>
+</dependency>-->
+	  <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>5.2.7.RELEASE</version> <!-- 현재 사용 중인 스프링 버전에 맞춰 업데이트 -->
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-config</artifactId>
+        <version>5.2.7.RELEASE</version> <!-- 현재 사용 중인 스프링 버전에 맞춰 업데이트 -->
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.security.oauth.boot</groupId>
+        <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+        <version>2.5.0</version> <!-- OAuth 2.0 버전에 맞춰 업데이트 -->
+    </dependency>
+  <dependency>
+    <groupId>org.springframework.security.oauth</groupId>
+    <artifactId>spring-security-oauth2</artifactId>
+    <version>2.3.6.RELEASE</version>
 </dependency>
-	
+    
 <!-- 버전 맞춰서 스프링 시큐리티 4개 넣어줄 것 -->
 <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
 <dependency>

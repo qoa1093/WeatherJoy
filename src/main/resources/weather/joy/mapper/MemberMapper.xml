@@ -161,4 +161,8 @@ where memEmail = #{memEmail}
 			member 
 				where memId = #{userid}
 </select>
+
+<select id="getReadID" resultType="String">
+select memId From member where memName = #{memName} and memEmail=#{memEmail}
+</select>
 </mapper>

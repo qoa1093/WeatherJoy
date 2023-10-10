@@ -18,7 +18,7 @@
             <form action="/member/modify" method="post" id="myform" autocomplete="off" role="form" accept-charset="UTF-8">
            <!-- <form id="myform"> -->
                 <div class="signup-wrapper">
-                ${member}
+               <!--   ${member}-->
                     <p>아이디</p>
                     <input type="text" class="weatherSignUp" name="memId" value='<c:out value="${member.memId}"/>' readonly > 
                     <p></p>

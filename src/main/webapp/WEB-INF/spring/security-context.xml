@@ -11,6 +11,8 @@
 <bean id="customUserDetailsService" class="weather.joy.security.CustomUserDetailsService"></bean>
 
 <security:http>
+
+
 <security:access-denied-handler ref="customAccessDenied"/>
 
 <security:form-login login-page="/member/signin"/>

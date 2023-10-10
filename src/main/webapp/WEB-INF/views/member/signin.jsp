@@ -100,7 +100,7 @@
                     자동로그인
                 </span>
                     <p/>
-                    <a href="javascript:void(0);" onclick="newWindow('findPw', '비밀번호찾기', 440, 400);">비밀번호찾기</a> <a href=""> 아이디찾기 </a>
+                    <a href="javascript:void(0);" onclick="newWindow('findPw', '비밀번호찾기', 440, 400);">비밀번호찾기</a> <a href="javascript:void(0);" onclick="newWindow('findId', '아이디찾기', 440, 400);"> 아이디찾기 </a>
                     <p></p>
                     <button type="submit"  class="sign signInBtn" id="signInBtn">로그인</button> 
                     <button type="button" class="sign signUpBtn">회원가입</button>                  
