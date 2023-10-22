@@ -40,3 +40,4 @@ target/classes/*
 target/m2e-wtp/web-resources/META-INF/*
 src/main/resources/email.properties
 src/main/resources/email.properties
+src/main/resources/email.properties
