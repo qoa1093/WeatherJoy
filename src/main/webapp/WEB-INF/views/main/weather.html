@@ -249,9 +249,10 @@ select{
             str = str + d;
             return str;
         }
-
+//이부분 보호하기1
+import {service1, service2} from "serviceKey";
         function show(selectedValue,reCityName){
-            var url = "https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey=ibNDydv%2BVD1XxdnbSBCwRIZ4nfiYnptFv6FveU0wGfu4yRPisWSg%2F1gRJgdgRxOvOm6DlzNjTEJrjZkDyxNwbw%3D%3D";
+            var url = "https://apis.data.go.kr/B551011/KorService1/searchKeyword1?serviceKey="+service1;
             url = url + '&numOfRows=10&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=xml&listYN=Y&arrange=A&keyword='+reCityName+'&contentTypeId='+selectedValue;
             $(".cb2").text("");
             console.log("----: "+url);
@@ -305,8 +306,8 @@ select{
         let goodList = [];
         let veryGoodList = [];
         function goodDayList(){
-            
-            var url = "https://apis.data.go.kr/1360000/TourStnInfoService1/getCityTourClmIdx1?serviceKey=ibNDydv%2BVD1XxdnbSBCwRIZ4nfiYnptFv6FveU0wGfu4yRPisWSg%2F1gRJgdgRxOvOm6DlzNjTEJrjZkDyxNwbw%3D%3D";
+  //이부분 보호하기2          
+            var url = "https://apis.data.go.kr/1360000/TourStnInfoService1/getCityTourClmIdx1?serviceKey="+service2;
                 url = url + "&pageNo=1&numOfRows=500&dataType=XML&DAY=0&CURRENT_DATE="+$('#txtYear').val() + $('#selMon').val()+$('#selDay').val();//(getDate());//
                 console.log("------"+url);
 
