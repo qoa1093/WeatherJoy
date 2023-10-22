@@ -31,7 +31,7 @@
 		          <label>상세 장소</label>
 		         <br>
 		          <input class="backCol region" name="smallRegion">
-		          <input name="bdRegion" value="">
+		          <input  type="hidden" name="bdRegion" value="">
 		    </div>	    
 			<div >
 		          <label>한줄평</label>
