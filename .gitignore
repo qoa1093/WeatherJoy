@@ -1,4 +1,5 @@
 .target/*
+*.properties
 # Created by https://www.toptal.com/developers/gitignore/api/java
 # Edit at https://www.toptal.com/developers/gitignore?templates=java
 
@@ -37,4 +38,5 @@ target/m2e-wtp/web-resources/META-INF/maven/org.zerock/controller/pom.properties
 *.properties
 target/classes/*
 target/m2e-wtp/web-resources/META-INF/*
+src/main/resources/email.properties
 src/main/resources/email.properties
